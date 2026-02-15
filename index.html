@@ -413,6 +413,61 @@
             </Section>
         );
 
+        const EcosystemVsPower = () => (
+            <Section className="bg-slate-950/70">
+                <div className="max-w-6xl w-full">
+                    <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-4">
+                        Écosystème versus puissance brute
+                    </h2>
+
+                    <div className="max-w-5xl mx-auto text-gray-300 space-y-4 mb-10">
+                        <h3 className="text-2xl font-bold text-blue-200">La tentation de la course aux armements</h3>
+                        <p>
+                            Dans le monde de l'IA, il est tentant de croire que seul le modèle le plus puissant, le plus gros, le plus récent compte. GPT-5, Gemini Ultra, Claude Opus... Les entreprises technologiques rivalisent de superlatifs pour vanter leurs dernières créations.
+                        </p>
+                        <p>
+                            Mais c'est oublier une vérité fondamentale : un outil n'est efficace que s'il s'intègre dans un écosystème cohérent. Une Ferrari ne sert à rien sur un chemin de terre sans GPS, sans carburant accessible, sans mécanicien compétent.
+                        </p>
+                    </div>
+
+                    <Card className="mb-8 border-indigo-500/30">
+                        <h3 className="text-2xl font-bold text-white mb-4">L'écosystème qui fait la différence</h3>
+                        <div className="grid md:grid-cols-2 gap-3 text-gray-300">
+                            <p>• <strong className="text-white">Méthode :</strong> savoir poser les bonnes questions.</p>
+                            <p>• <strong className="text-white">Contexte :</strong> adapter l'outil à la situation.</p>
+                            <p>• <strong className="text-white">Vérification :</strong> croiser les sources et valider.</p>
+                            <p>• <strong className="text-white">Intégration :</strong> connecter l'IA à vos autres outils.</p>
+                            <p className="md:col-span-2">• <strong className="text-white">Formation :</strong> développer vos compétences d'utilisation.</p>
+                        </div>
+                        <p className="text-xl text-center text-blue-200 italic mt-6">
+                            "Mieux vaut un bon pilote qu'un moteur de fusée."
+                        </p>
+                    </Card>
+
+                    <div className="grid md:grid-cols-2 gap-6">
+                        <Card className="border-red-400/20">
+                            <h3 className="text-2xl font-bold text-white mb-4">Approche "Puissance brute"</h3>
+                            <ul className="space-y-2 text-gray-300 text-sm">
+                                <li>✗ Se focaliser uniquement sur le dernier modèle</li>
+                                <li>✗ Utiliser l'IA de manière isolée</li>
+                                <li>✗ Négliger la formation et la méthode</li>
+                                <li>✗ Résultat : potentiel inexploité</li>
+                            </ul>
+                        </Card>
+                        <Card className="border-green-400/20" delay={0.1}>
+                            <h3 className="text-2xl font-bold text-white mb-4">Approche "Écosystème"</h3>
+                            <ul className="space-y-2 text-gray-300 text-sm">
+                                <li>✓ Choisir l'outil adapté au besoin</li>
+                                <li>✓ Intégrer l'IA dans un workflow cohérent</li>
+                                <li>✓ Investir dans les compétences humaines</li>
+                                <li>✓ Résultat : efficacité maximale</li>
+                            </ul>
+                        </Card>
+                    </div>
+                </div>
+            </Section>
+        );
+
         const HistoryTimeline = () => {
             const events = [
                 { year: "1950", title: "Test de Turing", desc: "Alan Turing pose la question : Les machines peuvent-elles penser ?" },
@@ -1183,6 +1238,7 @@
                     <Risks />
                     <SafetyBelt />
                     <ChatGPTGarage />
+                    <EcosystemVsPower />
                     <Prompting />
                     <PromptCommandments />
                     <LearningAndCopilot />
