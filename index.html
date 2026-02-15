@@ -592,7 +592,17 @@
                             "L'humain reste l'artiste. L'IA reste l'outil.<br/>Ne confondons jamais les deux."
                         </p>
                     </div>
-                    <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="mt-12 px-8 py-3 bg-white text-gray-900 rounded-full font-bold hover:bg-gray-200 transition-colors">
+                    <button
+                        onClick={() => {
+                            const container = document.querySelector('.snap-container');
+                            if (container) {
+                                container.scrollTo({ top: 0, behavior: 'smooth' });
+                                return;
+                            }
+                            window.scrollTo({ top: 0, behavior: 'smooth' });
+                        }}
+                        className="mt-12 px-8 py-3 bg-white text-gray-900 rounded-full font-bold hover:bg-gray-200 transition-colors"
+                    >
                         Reprendre la route
                     </button>
                 </div>
