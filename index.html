@@ -377,6 +377,19 @@
                 }
             ];
 
+            const metaphors = [
+                {
+                    icon: <ChefHat size={48} className="text-orange-400" />,
+                    title: "Le Chef Cuisinier",
+                    text: "Comme un chef qui apprend en goûtant et ajustant. L'IA teste, mesure l'écart avec l'objectif, et ajuste ses paramètres des millions de fois."
+                },
+                {
+                    icon: <Box size={48} className="text-green-400" />,
+                    title: "Le Rubik's Cube",
+                    text: "L'IA tourne les faces au hasard au début. Elle explore des milliards de combinaisons, mémorise l'ordre et abandonne progressivement le chaos."
+                }
+            ];
+
             return (
                 <Section>
                     <div className="max-w-6xl w-full">
@@ -386,6 +399,26 @@
                         <p className="text-center text-gray-300 max-w-4xl mx-auto mb-10">
                             Le machine learning (apprentissage automatique) est le cœur de l'IA moderne. Plutôt que de programmer explicitement chaque règle, on laisse la machine découvrir les patterns par elle-même à partir d'exemples.
                         </p>
+
+                        <div className="mb-10">
+                            <h3 className="text-2xl md:text-3xl font-bold text-white text-center mb-6">
+                                Deux métaphores pour comprendre simplement
+                            </h3>
+                            <div className="grid md:grid-cols-2 gap-8">
+                                {metaphors.map((item, idx) => (
+                                    <Card key={idx} className={idx === 0 ? "hover:bg-orange-500/10" : "hover:bg-green-500/10"} delay={idx * 0.1}>
+                                        <div className="flex flex-col items-center text-center">
+                                            <div className={idx === 0 ? "p-4 bg-orange-500/20 rounded-full mb-6" : "p-4 bg-green-500/20 rounded-full mb-6"}>
+                                                {item.icon}
+                                            </div>
+                                            <h4 className="text-2xl font-bold text-white mb-4">{item.title}</h4>
+                                            <p className="text-gray-300">{item.text}</p>
+                                        </div>
+                                    </Card>
+                                ))}
+                            </div>
+                        </div>
+
                         <div className="grid md:grid-cols-2 gap-8">
                             <Card>
                                 <h3 className="text-2xl font-bold text-white mb-4">Le cycle d'apprentissage</h3>
@@ -757,38 +790,6 @@
                 </Section>
             );
         };
-
-        const Metaphors = () => (
-            <Section>
-                <div className="max-w-6xl w-full">
-                    <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-6">Comment ça marche ?</h2>
-                    <div className="grid md:grid-cols-2 gap-8 mt-12">
-                        <Card className="hover:bg-orange-500/10">
-                            <div className="flex flex-col items-center text-center">
-                                <div className="p-4 bg-orange-500/20 rounded-full mb-6">
-                                    <ChefHat size={48} className="text-orange-400" />
-                                </div>
-                                <h3 className="text-2xl font-bold text-white mb-4">Le Chef Cuisinier</h3>
-                                <p className="text-gray-300">
-                                    Comme un chef qui apprend en goûtant et ajustant. L'IA teste, mesure l'écart avec l'objectif, et ajuste ses "ingrédients" (paramètres) des millions de fois.
-                                </p>
-                            </div>
-                        </Card>
-                        <Card className="hover:bg-green-500/10" delay={0.2}>
-                            <div className="flex flex-col items-center text-center">
-                                <div className="p-4 bg-green-500/20 rounded-full mb-6">
-                                    <Box size={48} className="text-green-400" />
-                                </div>
-                                <h3 className="text-2xl font-bold text-white mb-4">Le Rubik's Cube</h3>
-                                <p className="text-gray-300">
-                                    L'IA tourne les faces au hasard au début. Elle explore des milliards de combinaisons, mémorise l'ordre et abandonne le chaos.
-                                </p>
-                            </div>
-                        </Card>
-                    </div>
-                </div>
-            </Section>
-        );
 
         const Risks = () => (
             <Section className="bg-red-900/10">
@@ -1707,7 +1708,6 @@
                     <DrivingQuestion />
                     <Foundations />
                     <HistoryTimeline />
-                    <Metaphors />
                     <MachineLearningBasics />
                     <Risks />
                     <SafetyBelt />
