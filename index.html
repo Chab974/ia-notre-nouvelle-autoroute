@@ -99,6 +99,7 @@
             { id: "machine-learning", label: "Comment l'IA apprend" },
             { id: "risks", label: "Illusions dangereuses" },
             { id: "safety", label: "Ceinture de sécurité" },
+            { id: "toolbox", label: "Boîte à outils IA" },
             { id: "prompting", label: "Art du prompt" },
             { id: "human-center", label: "Humain au centre" },
             { id: "energy-geo", label: "Énergie & géopolitique" },
@@ -696,6 +697,69 @@
                 </div>
             </Section>
         );
+
+        const ToolboxSection = () => {
+            const tools = [
+                {
+                    icon: <Globe className="text-blue-300" size={24} />,
+                    title: "Pour la conversation et l'assistance",
+                    recommended: "Outils recommandés : ChatGPT, Claude, Gemini",
+                    details: "Choisissez-en un comme outil principal. Apprenez ses forces et ses limites. ChatGPT excelle en génération créative, Claude est plus prudent et structuré, Gemini s'intègre bien avec l'écosystème Google."
+                },
+                {
+                    icon: <Lightbulb className="text-pink-300" size={24} />,
+                    title: "Pour la création visuelle",
+                    recommended: "Outils recommandés : Midjourney, DALL-E, Stable Diffusion",
+                    details: "Si vous travaillez avec des images, investissez du temps pour maîtriser la génération par prompts. La qualité des résultats dépend directement de la qualité de vos descriptions."
+                },
+                {
+                    icon: <Zap className="text-yellow-300" size={24} />,
+                    title: "Pour l'analyse de données",
+                    recommended: "Outils recommandés : Code Interpreter de ChatGPT, Google Sheets avec extensions IA",
+                    details: "Pour transformer des tableaux de chiffres en insights compréhensibles sans être data scientist."
+                },
+                {
+                    icon: <BookOpen className="text-emerald-300" size={24} />,
+                    title: "Pour l'écriture et la rédaction",
+                    recommended: "Outils recommandés : Grammarly, Notion AI, extensions de navigateur",
+                    details: "Intégrés directement dans votre flux de travail pour correction, amélioration, génération de contenu."
+                }
+            ];
+
+            return (
+                <Section id="toolbox">
+                    <div className="max-w-6xl w-full">
+                        <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-4">
+                            Créer sa "boîte à outils" IA personnalisée
+                        </h2>
+                        <p className="text-center text-gray-300 max-w-4xl mx-auto mb-10">
+                            Il existe des centaines d'outils d'IA disponibles. Impossible de tous les maîtriser. L'approche intelligente consiste à se constituer un écosystème personnel de 3 à 5 outils que vous connaissez vraiment bien, plutôt que de papillonner superficiellement entre des dizaines d'applications.
+                        </p>
+
+                        <div className="grid md:grid-cols-2 gap-6 mb-8">
+                            {tools.map((item, idx) => (
+                                <Card key={idx} className="h-full border-white/15" delay={idx * 0.06}>
+                                    <div className="flex items-center gap-3 mb-3">
+                                        <div className="p-2 rounded-lg bg-white/5 border border-white/10">
+                                            {item.icon}
+                                        </div>
+                                        <h3 className="text-xl font-bold text-white">{item.title}</h3>
+                                    </div>
+                                    <p className="text-blue-200 text-sm font-medium mb-3">{item.recommended}</p>
+                                    <p className="text-gray-300 text-sm leading-relaxed">{item.details}</p>
+                                </Card>
+                            ))}
+                        </div>
+
+                        <Card className="border-blue-500/30 bg-blue-500/10">
+                            <p className="text-gray-200 text-sm leading-relaxed">
+                                <strong>Conseil stratégique :</strong> Ne cherchez pas à utiliser tous les outils existants. Sélectionnez ceux qui correspondent à vos besoins réels, pas aux tendances du moment. Un outil bien maîtrisé vaut mieux que dix outils à peine effleurés.
+                            </p>
+                        </Card>
+                    </div>
+                </Section>
+            );
+        };
 
         // --- NOUVEAU: Section Actualités Dynamique ---
 
@@ -2015,6 +2079,7 @@
                     <SafetyBelt />
                     <ChatGPTGarage />
                     <EcosystemVsPower />
+                    <ToolboxSection />
                     <Prompting />
                     <PromptCommandments />
                     <LearningAndCopilot />
