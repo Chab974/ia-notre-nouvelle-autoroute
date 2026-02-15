@@ -857,30 +857,71 @@
 
         const Prompting = () => (
             <Section className="bg-gradient-to-br from-gray-900 via-indigo-900/20 to-gray-900">
-                <div className="max-w-5xl w-full">
-                    <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-12">L'Art du Prompt</h2>
-                    
-                    <div className="grid md:grid-cols-2 gap-8">
-                        <div className="bg-red-500/10 border border-red-500/30 p-6 rounded-xl">
-                            <div className="flex items-center gap-2 mb-4 text-red-400">
-                                <span className="text-2xl">❌</span>
-                                <h3 className="font-bold text-xl">Prompt Vague</h3>
-                            </div>
-                            <p className="text-white font-mono bg-black/30 p-3 rounded mb-4">"Fais un résumé."</p>
-                            <p className="text-gray-400 text-sm">Résultat : Générique, sans angle, ne répond pas au besoin spécifique.</p>
-                        </div>
+                <div className="max-w-6xl w-full">
+                    <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-4">
+                        L'art du "prompt" : bien communiquer avec l'IA
+                    </h2>
+                    <p className="text-center text-gray-300 max-w-4xl mx-auto mb-8">
+                        Le "prompt", c'est votre manière de formuler une demande à l'IA. C'est l'équivalent de donner des instructions à un collaborateur : la clarté et la précision de votre demande déterminent largement la qualité de la réponse.
+                    </p>
 
-                        <div className="bg-green-500/10 border border-green-500/30 p-6 rounded-xl">
-                            <div className="flex items-center gap-2 mb-4 text-green-400">
-                                <span className="text-2xl">✅</span>
-                                <h3 className="font-bold text-xl">Prompt Contextualisé</h3>
+                    <Card className="mb-8 border-blue-500/30">
+                        <h3 className="text-2xl font-bold text-white mb-3">Le principe d'or : clarté et contexte</h3>
+                        <p className="text-blue-200 text-lg italic mb-3">
+                            "Dis ce que tu veux, pas ce que tu crois qu'elle comprend."
+                        </p>
+                        <p className="text-gray-300 text-sm leading-relaxed">
+                            Ne cherchez pas à "parler robot" ou à utiliser un jargon technique. Exprimez-vous naturellement, mais avec précision. L'IA comprend mieux un langage clair et détaillé qu'une instruction cryptique ou trop succincte.
+                        </p>
+                    </Card>
+
+                    <div className="grid md:grid-cols-2 gap-8 mb-8">
+                        <Card className="border-red-500/30 bg-red-500/10">
+                            <div className="flex items-center gap-2 mb-3 text-red-400">
+                                <span className="text-2xl">❌</span>
+                                <h3 className="font-bold text-xl">Exemple de prompt faible</h3>
                             </div>
-                            <p className="text-white font-mono bg-black/30 p-3 rounded mb-4 text-sm">
-                                "Agis comme un prof de lycée. Explique la Révolution française à un élève de 16 ans. Utilise des métaphores modernes."
+                            <p className="text-white font-mono bg-black/30 p-3 rounded mb-3">"Fais un résumé."</p>
+                            <p className="text-gray-300 text-sm">
+                                <strong>Problème :</strong> aucun contexte. Résumé de quoi ? Pour qui ? Dans quel objectif ? De quelle longueur ? L'IA va deviner, et rarement dans le sens souhaité.
                             </p>
-                            <p className="text-gray-400 text-sm">Résultat : Adapté, pédagogique, engageant.</p>
-                        </div>
+                        </Card>
+
+                        <Card className="border-green-500/30 bg-green-500/10" delay={0.1}>
+                            <div className="flex items-center gap-2 mb-3 text-green-400">
+                                <span className="text-2xl">✅</span>
+                                <h3 className="font-bold text-xl">Exemple de prompt efficace</h3>
+                            </div>
+                            <p className="text-white font-mono bg-black/30 p-3 rounded mb-3 text-sm leading-relaxed">
+                                "Explique ce texte sur le réchauffement climatique à un lycéen curieux mais qui n'a pas de formation scientifique. Utilise des analogies simples et un ton pédagogique. Résume les 3 idées principales en 200 mots maximum."
+                            </p>
+                            <p className="text-gray-300 text-sm">
+                                <strong>Forces :</strong> public cible défini, ton précisé, contrainte de longueur, objectif clair.
+                            </p>
+                        </Card>
                     </div>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                        {[
+                            ['Rôle', 'Tu es un expert en nutrition / un professeur patient'],
+                            ['Contexte', "Donnez les informations de fond nécessaires"],
+                            ['Tâche', "Soyez explicite sur ce que vous voulez"],
+                            ['Format', "Liste, paragraphe, tableau..."],
+                            ['Ton', "Formel, décontracté, humoristique..."],
+                            ['Contraintes', "Longueur, niveau de détail, public visé"]
+                        ].map(([title, text], idx) => (
+                            <Card key={idx} className="p-4">
+                                <h4 className="text-white font-bold mb-2">{title}</h4>
+                                <p className="text-gray-300 text-sm">{text}</p>
+                            </Card>
+                        ))}
+                    </div>
+
+                    <Card className="border-purple-500/30">
+                        <p className="text-gray-200 text-sm leading-relaxed">
+                            <strong>Conseil pratique :</strong> si la première réponse ne vous satisfait pas, affinez votre demande. L'IA apprend de vos précisions successives. C'est un dialogue, pas une commande unique.
+                        </p>
+                    </Card>
                 </div>
             </Section>
         );
