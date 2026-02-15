@@ -115,6 +115,9 @@
                     <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto">
                         Apprendre à conduire la technologie la plus puissante de notre époque.
                     </p>
+                    <p className="text-sm text-gray-400 mb-8">
+                        Adaptation web complète de la conférence "L'intelligence artificielle, notre nouvelle auto-école" (Patrice Lauret).
+                    </p>
                     <motion.div 
                         animate={{ y: [0, 10, 0] }} 
                         transition={{ repeat: Infinity, duration: 2 }}
@@ -163,6 +166,238 @@
                             </div>
                         </div>
                     </motion.div>
+                </div>
+            </Section>
+        );
+
+        const DrivingQuestion = () => {
+            const [answer, setAnswer] = useState('');
+            const [saved, setSaved] = useState(false);
+
+            useEffect(() => {
+                try {
+                    const stored = localStorage.getItem('ia-auto-ecole-question');
+                    if (stored) {
+                        setAnswer(stored);
+                        setSaved(true);
+                    }
+                } catch (e) {
+                    // ignore localStorage issues in restricted browsers
+                }
+            }, []);
+
+            const onSave = () => {
+                const clean = answer.trim();
+                if (!clean) return;
+                try {
+                    localStorage.setItem('ia-auto-ecole-question', clean);
+                    setSaved(true);
+                } catch (e) {
+                    // ignore localStorage issues in restricted browsers
+                }
+            };
+
+            return (
+                <Section className="bg-gray-900/60">
+                    <div className="max-w-4xl w-full">
+                        <h2 className="text-3xl md:text-5xl font-bold text-white text-center mb-4">
+                            Votre première décision de pilote
+                        </h2>
+                        <p className="text-center text-gray-300 mb-8">
+                            Si vous pouviez confier une seule tâche à une IA dès aujourd'hui, laquelle choisiriez-vous ?
+                        </p>
+                        <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
+                            <textarea
+                                value={answer}
+                                onChange={(e) => {
+                                    setAnswer(e.target.value);
+                                    setSaved(false);
+                                }}
+                                placeholder="Exemple: résumer mes notes de réunion et proposer un plan d'action."
+                                className="w-full min-h-[120px] p-4 rounded-xl bg-gray-950/70 border border-gray-700 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                            />
+                            <div className="mt-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                                <button
+                                    onClick={onSave}
+                                    className="px-6 py-3 rounded-full bg-blue-500 text-white font-bold hover:bg-blue-400 transition-colors w-full md:w-auto"
+                                >
+                                    Enregistrer ma réponse
+                                </button>
+                                <p className="text-sm text-gray-400">
+                                    {saved ? "Réponse enregistrée localement sur cet appareil." : "Astuce: gardez cette réponse en tête, vous y reviendrez à la fin."}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </Section>
+            );
+        };
+
+        const Foundations = () => {
+            const milestones = [
+                { year: "1950", title: "Test de Turing", desc: "Question fondatrice: une machine peut-elle imiter une conversation humaine ?" },
+                { year: "1956", title: "Dartmouth", desc: "Le terme Intelligence Artificielle est officiellement introduit." },
+                { year: "1997", title: "Deep Blue", desc: "IBM bat Kasparov: l'IA marque les esprits dans les jeux de stratégie." },
+                { year: "2012", title: "Deep Learning", desc: "Les réseaux de neurones profonds changent la reconnaissance d'images." },
+                { year: "2022", title: "ChatGPT", desc: "L'IA conversationnelle devient un usage grand public." }
+            ];
+
+            const aiTypes = [
+                {
+                    title: "IA faible (Narrow AI)",
+                    status: "Aujourd'hui",
+                    desc: "Excellente sur des tâches ciblées (traduction, résumé, reconnaissance), mais sans compréhension générale."
+                },
+                {
+                    title: "IA générale (AGI)",
+                    status: "Hypothétique",
+                    desc: "Capable d'apprendre et de transférer ses compétences comme un humain, mais encore non atteinte."
+                },
+                {
+                    title: "Super-IA",
+                    status: "Spéculative",
+                    desc: "Hypothèse d'une intelligence dépassant l'humain dans presque tous les domaines."
+                }
+            ];
+
+            return (
+                <Section className="bg-slate-950/70">
+                    <div className="max-w-6xl w-full">
+                        <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-4">
+                            Chapitre 1: Les fondations de l'IA
+                        </h2>
+                        <p className="text-center text-gray-300 max-w-3xl mx-auto mb-10">
+                            L'IA ne comprend pas comme nous: elle corrèle des motifs statistiques. Cette distinction change tout dans la manière de l'utiliser.
+                        </p>
+
+                        <div className="grid md:grid-cols-5 gap-4 mb-10">
+                            {milestones.map((item, idx) => (
+                                <Card key={idx} className="p-4">
+                                    <p className="text-blue-300 font-mono font-bold">{item.year}</p>
+                                    <h3 className="text-white font-bold mt-1 mb-2">{item.title}</h3>
+                                    <p className="text-gray-400 text-sm">{item.desc}</p>
+                                </Card>
+                            ))}
+                        </div>
+
+                        <div className="bg-white/5 border border-white/10 rounded-2xl p-6 mb-8">
+                            <p className="text-xl md:text-2xl text-center text-blue-200 font-semibold">
+                                "L'IA ne comprend pas. Elle corrèle."
+                            </p>
+                        </div>
+
+                        <div className="grid md:grid-cols-3 gap-6">
+                            {aiTypes.map((item, idx) => (
+                                <Card key={idx}>
+                                    <div className="flex items-center justify-between mb-2">
+                                        <h3 className="text-lg font-bold text-white">{item.title}</h3>
+                                        <span className="text-xs uppercase tracking-wide px-2 py-1 rounded-full bg-white/10 text-gray-300">
+                                            {item.status}
+                                        </span>
+                                    </div>
+                                    <p className="text-gray-400 text-sm">{item.desc}</p>
+                                </Card>
+                            ))}
+                        </div>
+                    </div>
+                </Section>
+            );
+        };
+
+        const MachineLearningBasics = () => {
+            const pipeline = [
+                { step: "1. Données", text: "Des exemples massifs (texte, image, audio) servent de base d'entraînement." },
+                { step: "2. Apprentissage", text: "Le modèle ajuste ses paramètres pour réduire ses erreurs." },
+                { step: "3. Optimisation", text: "Il affine progressivement ses prédictions et généralisations." },
+                { step: "4. Déploiement", text: "Le modèle répond sur des cas nouveaux qu'il n'a jamais vus." }
+            ];
+
+            const methods = [
+                { name: "Supervisé", usage: "Classification, prédiction", hint: "Exemples avec bonnes réponses." },
+                { name: "Non supervisé", usage: "Clustering, anomalies", hint: "Recherche de structures cachées." },
+                { name: "Renforcement", usage: "Jeux, robotique", hint: "Essais/erreurs avec récompenses." }
+            ];
+
+            return (
+                <Section>
+                    <div className="max-w-6xl w-full">
+                        <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-10">
+                            Comment l'IA apprend vraiment
+                        </h2>
+                        <div className="grid md:grid-cols-2 gap-8">
+                            <Card>
+                                <h3 className="text-2xl font-bold text-white mb-4">Le cycle d'apprentissage</h3>
+                                <div className="space-y-4">
+                                    {pipeline.map((item, idx) => (
+                                        <div key={idx} className="p-4 rounded-xl bg-white/5 border border-white/10">
+                                            <p className="text-blue-300 font-bold">{item.step}</p>
+                                            <p className="text-gray-300 text-sm mt-1">{item.text}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </Card>
+                            <Card delay={0.1}>
+                                <h3 className="text-2xl font-bold text-white mb-4">3 approches majeures</h3>
+                                <div className="space-y-4">
+                                    {methods.map((item, idx) => (
+                                        <div key={idx} className="p-4 rounded-xl bg-white/5 border border-white/10">
+                                            <div className="flex items-center justify-between">
+                                                <p className="text-purple-300 font-bold">{item.name}</p>
+                                                <span className="text-xs text-gray-400">{item.usage}</span>
+                                            </div>
+                                            <p className="text-gray-300 text-sm mt-1">{item.hint}</p>
+                                        </div>
+                                    ))}
+                                </div>
+                            </Card>
+                        </div>
+                    </div>
+                </Section>
+            );
+        };
+
+        const ChatGPTGarage = () => (
+            <Section className="bg-gray-900/70">
+                <div className="max-w-6xl w-full">
+                    <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-10">
+                        Apprivoiser ChatGPT: votre garage numérique
+                    </h2>
+
+                    <div className="grid md:grid-cols-3 gap-6 mb-10">
+                        <Card>
+                            <h3 className="text-xl font-bold text-white mb-2">Mémoire personnalisée</h3>
+                            <p className="text-gray-400 text-sm">L'outil retient votre contexte et vos préférences pour réduire les répétitions.</p>
+                        </Card>
+                        <Card delay={0.1}>
+                            <h3 className="text-xl font-bold text-white mb-2">Instructions personnalisées</h3>
+                            <p className="text-gray-400 text-sm">Définissez ton, format, niveau de détail et public cible une fois pour toutes.</p>
+                        </Card>
+                        <Card delay={0.2}>
+                            <h3 className="text-xl font-bold text-white mb-2">GPTs spécialisés</h3>
+                            <p className="text-gray-400 text-sm">Créez des assistants dédiés: écriture, langue, pédagogie, planification, etc.</p>
+                        </Card>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-6">
+                        <Card className="border-red-400/20">
+                            <h3 className="text-2xl font-bold text-white mb-4">Approche puissance brute</h3>
+                            <ul className="space-y-2 text-gray-300 text-sm">
+                                <li>✗ Se focaliser sur le dernier modèle uniquement</li>
+                                <li>✗ Utiliser l'IA sans méthode</li>
+                                <li>✗ Négliger vérification et formation</li>
+                                <li>✗ Résultat: potentiel inexploité</li>
+                            </ul>
+                        </Card>
+                        <Card className="border-green-400/20" delay={0.1}>
+                            <h3 className="text-2xl font-bold text-white mb-4">Approche écosystème</h3>
+                            <ul className="space-y-2 text-gray-300 text-sm">
+                                <li>✓ Choisir l'outil adapté au besoin</li>
+                                <li>✓ L'intégrer à un workflow cohérent</li>
+                                <li>✓ Vérifier, corriger, itérer</li>
+                                <li>✓ Résultat: efficacité durable</li>
+                            </ul>
+                        </Card>
+                    </div>
                 </div>
             </Section>
         );
@@ -528,12 +763,212 @@
             </Section>
         );
 
+        const PromptCommandments = () => {
+            const commandments = [
+                "Soyez spécifique: objectif, public, longueur.",
+                "Donnez du contexte, même court, mais utile.",
+                "Attribuez un rôle clair à l'IA.",
+                "Structurez votre demande en étapes.",
+                "Demandez des exemples concrets.",
+                "Itérez: la première réponse est un brouillon.",
+                "Précisez le format final attendu.",
+                "Demandez les points faibles de la réponse.",
+                "Utilisez des contraintes créatives.",
+                "Vérifiez toujours les faits critiques."
+            ];
+
+            return (
+                <Section className="bg-slate-950/70">
+                    <div className="max-w-6xl w-full">
+                        <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-10">
+                            Les 10 commandements du prompt
+                        </h2>
+                        <div className="grid md:grid-cols-2 gap-4">
+                            {commandments.map((item, idx) => (
+                                <Card key={idx} className="p-4">
+                                    <p className="text-sm uppercase tracking-wide text-blue-300 font-mono mb-1">
+                                        Commandement {String(idx + 1).padStart(2, "0")}
+                                    </p>
+                                    <p className="text-gray-200">{item}</p>
+                                </Card>
+                            ))}
+                        </div>
+                    </div>
+                </Section>
+            );
+        };
+
+        const LearningAndCopilot = () => {
+            const learning = [
+                "Langues: conversation, correction, immersion.",
+                "Sciences: vulgarisation progressive, exemples.",
+                "Histoire: contexte, liens entre événements.",
+                "Bricolage: pas-à-pas, sécurité, matériaux.",
+                "Créativité: idées, variantes, feedback."
+            ];
+
+            const daily = [
+                "Emails et courriers administratifs.",
+                "Planification de projets et étapes.",
+                "Synthèse de documents longs.",
+                "Brainstorming et génération d'options.",
+                "Préparation d'entretiens ou négociations."
+            ];
+
+            return (
+                <Section>
+                    <div className="max-w-6xl w-full">
+                        <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-4">
+                            Chapitre 2: Maîtriser l'IA au quotidien
+                        </h2>
+                        <p className="text-center text-gray-300 max-w-3xl mx-auto mb-10">
+                            Utilisez l'IA comme une bibliothèque mondiale et un copilote de tâches. Elle propose, vous décidez.
+                        </p>
+                        <div className="grid md:grid-cols-2 gap-8">
+                            <Card>
+                                <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                                    <BookOpen className="text-blue-400" /> IA pour apprendre
+                                </h3>
+                                <ul className="space-y-2 text-gray-300 text-sm">
+                                    {learning.map((item, idx) => <li key={idx}>• {item}</li>)}
+                                </ul>
+                                <p className="mt-4 text-blue-200 text-sm italic">
+                                    "Apprendre avec l'IA, c'est discuter avec la bibliothèque du monde."
+                                </p>
+                            </Card>
+                            <Card delay={0.1}>
+                                <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
+                                    <Lightbulb className="text-yellow-400" /> IA comme copilote
+                                </h3>
+                                <ul className="space-y-2 text-gray-300 text-sm">
+                                    {daily.map((item, idx) => <li key={idx}>• {item}</li>)}
+                                </ul>
+                                <p className="mt-4 text-yellow-200 text-sm italic">
+                                    Repérez une tâche qui vous épuise: c'est souvent le meilleur point d'entrée pour l'automatisation.
+                                </p>
+                            </Card>
+                        </div>
+                    </div>
+                </Section>
+            );
+        };
+
+        const BeatboxSection = () => (
+            <Section className="bg-gray-900/60">
+                <div className="max-w-6xl w-full">
+                    <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-4">
+                        Ma Bohème: quand l'humain dépasse la machine
+                    </h2>
+                    <p className="text-center text-gray-300 max-w-4xl mx-auto mb-10">
+                        L'IA peut imiter des styles. Elle ne vit pas l'instant, l'énergie de scène, la vulnérabilité du live.
+                    </p>
+                    <div className="grid md:grid-cols-2 gap-8">
+                        <Card className="border-cyan-500/30">
+                            <h3 className="text-2xl font-bold text-white mb-4">Ce que l'IA peut faire</h3>
+                            <ul className="space-y-2 text-gray-300 text-sm">
+                                <li>• Générer des versions instrumentales très propres</li>
+                                <li>• Produire des variations infinies</li>
+                                <li>• Reproduire des structures rythmiques</li>
+                                <li>• Imiter des styles existants</li>
+                            </ul>
+                        </Card>
+                        <Card className="border-pink-500/30" delay={0.1}>
+                            <h3 className="text-2xl font-bold text-white mb-4">Ce que l'humain apporte</h3>
+                            <ul className="space-y-2 text-gray-300 text-sm">
+                                <li>• L'émotion authentique de l'interprétation</li>
+                                <li>• L'imprévisibilité créative de l'instant</li>
+                                <li>• La connexion avec le public</li>
+                                <li>• Le sens, le risque, la présence</li>
+                            </ul>
+                        </Card>
+                    </div>
+                    <p className="text-center text-xl text-pink-200 mt-10 italic">
+                        "L'humain peut faire ce que l'IA imite."
+                    </p>
+                </div>
+            </Section>
+        );
+
+        const RegulationBalance = () => (
+            <Section className="bg-black">
+                <div className="max-w-6xl w-full">
+                    <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-4">
+                        Chapitre 3: Réguler sans freiner
+                    </h2>
+                    <p className="text-center text-gray-300 max-w-4xl mx-auto mb-10">
+                        La bonne régulation protège les citoyens sans bloquer l'innovation: des feux rouges, pas des chaînes.
+                    </p>
+
+                    <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+                        <Card className="p-4">
+                            <h3 className="font-bold text-white mb-2">Données</h3>
+                            <p className="text-gray-400 text-sm">Consentement, vie privée, transparence d'usage.</p>
+                        </Card>
+                        <Card className="p-4" delay={0.05}>
+                            <h3 className="font-bold text-white mb-2">Biais</h3>
+                            <p className="text-gray-400 text-sm">Auditer, corriger, limiter les discriminations.</p>
+                        </Card>
+                        <Card className="p-4" delay={0.1}>
+                            <h3 className="font-bold text-white mb-2">Responsabilité</h3>
+                            <p className="text-gray-400 text-sm">Savoir qui répond en cas d'erreur critique.</p>
+                        </Card>
+                        <Card className="p-4" delay={0.15}>
+                            <h3 className="font-bold text-white mb-2">Sécurité</h3>
+                            <p className="text-gray-400 text-sm">Prévenir manipulations et attaques malveillantes.</p>
+                        </Card>
+                    </div>
+
+                    <div className="grid md:grid-cols-2 gap-6">
+                        <Card className="border-orange-500/30">
+                            <h3 className="text-xl font-bold text-white mb-2">Risque de sur-régulation</h3>
+                            <p className="text-gray-400 text-sm">Trop de complexité peut bloquer startups, chercheurs et innovation locale.</p>
+                        </Card>
+                        <Card className="border-red-500/30" delay={0.1}>
+                            <h3 className="text-xl font-bold text-white mb-2">Risque de sous-régulation</h3>
+                            <p className="text-gray-400 text-sm">Sans garde-fous: surveillance, manipulations, discriminations et perte de confiance.</p>
+                        </Card>
+                    </div>
+                </div>
+            </Section>
+        );
+
+        const NextSteps = () => {
+            const steps = [
+                { n: "01", title: "Choisir un outil", desc: "Testez ChatGPT, Claude ou Gemini avec 10 questions concrètes." },
+                { n: "02", title: "Automatiser une corvée", desc: "Repérez une tâche répétitive et déléguez-la partiellement à l'IA." },
+                { n: "03", title: "Partager vos usages", desc: "Diffusez vos apprentissages pour créer une culture IA responsable." },
+                { n: "04", title: "Rester lucide", desc: "Vérifiez les informations et gardez toujours votre jugement final." }
+            ];
+
+            return (
+                <Section className="bg-gradient-to-br from-gray-900 via-blue-900/20 to-gray-900">
+                    <div className="max-w-6xl w-full">
+                        <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-4">
+                            Votre nouvelle auto-école est ouverte
+                        </h2>
+                        <p className="text-center text-gray-300 max-w-3xl mx-auto mb-10">
+                            L'avenir n'est pas à subir: il se construit. Prenez le volant avec puissance et prudence.
+                        </p>
+                        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
+                            {steps.map((item, idx) => (
+                                <Card key={idx} className="p-5">
+                                    <p className="text-blue-300 font-mono font-bold">{item.n}</p>
+                                    <h3 className="text-white font-bold mt-1 mb-2">{item.title}</h3>
+                                    <p className="text-gray-400 text-sm">{item.desc}</p>
+                                </Card>
+                            ))}
+                        </div>
+                    </div>
+                </Section>
+            );
+        };
+
         const AdoptionChart = () => {
             const data = [
-                { country: "Chine", val: 65, color: "bg-red-500" },
-                { country: "Inde", val: 58, color: "bg-orange-500" },
-                { country: "France", val: 42, color: "bg-blue-500" },
-                { country: "Europe", val: 38, color: "bg-blue-700" },
+                { country: "Chine", val: 54, color: "bg-red-500" },
+                { country: "Inde", val: 52, color: "bg-orange-500" },
+                { country: "France", val: 28, color: "bg-blue-500" },
+                { country: "Europe", val: 30, color: "bg-blue-700" },
             ];
 
             return (
@@ -573,7 +1008,23 @@
                             <Zap size={32} />
                             <span className="text-xl font-bold">L'IA brûle des kilowatts</span>
                         </div>
-                        <p className="text-gray-400">Entraîner GPT-4 consomme autant d'électricité qu'une ville moyenne. Chaque requête est une goutte d'énergie.</p>
+                        <p className="text-gray-400">
+                            Derrière chaque requête, des data centers massifs. L'IA peut consommer beaucoup, mais aussi aider à optimiser énergie, mobilité et climat si l'usage est intentionnel.
+                        </p>
+                        <div className="grid grid-cols-3 gap-3">
+                            <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-center">
+                                <p className="text-yellow-300 font-bold text-lg">10MW</p>
+                                <p className="text-[11px] text-gray-400">Data center IA</p>
+                            </div>
+                            <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-center">
+                                <p className="text-yellow-300 font-bold text-lg">500t</p>
+                                <p className="text-[11px] text-gray-400">CO2 entraînement</p>
+                            </div>
+                            <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-center">
+                                <p className="text-yellow-300 font-bold text-lg">2.6kWh</p>
+                                <p className="text-[11px] text-gray-400">/1000 requêtes</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </Section>
@@ -615,14 +1066,23 @@
                     <ProgressBar />
                     <Hero />
                     <Introduction />
+                    <DrivingQuestion />
+                    <Foundations />
                     <HistoryTimeline />
                     <Metaphors />
+                    <MachineLearningBasics />
                     <Risks />
                     <SafetyBelt />
+                    <ChatGPTGarage />
                     <Prompting />
+                    <PromptCommandments />
+                    <LearningAndCopilot />
                     <HumanVsAI />
+                    <BeatboxSection />
                     <DynamicNewsSection />
                     <Consumption />
+                    <RegulationBalance />
+                    <NextSteps />
                     <Conclusion />
                     <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }}></div>
                 </div>
