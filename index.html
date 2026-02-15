@@ -1599,21 +1599,68 @@
 
         const NextSteps = () => {
             const steps = [
-                { n: "01", title: "Choisir un outil", desc: "Testez ChatGPT, Claude ou Gemini avec 10 questions concrètes." },
-                { n: "02", title: "Automatiser une corvée", desc: "Repérez une tâche répétitive et déléguez-la partiellement à l'IA." },
-                { n: "03", title: "Partager vos usages", desc: "Diffusez vos apprentissages pour créer une culture IA responsable." },
-                { n: "04", title: "Rester lucide", desc: "Vérifiez les informations et gardez toujours votre jugement final." }
+                {
+                    n: "01",
+                    title: "Choisissez un outil et expérimentez",
+                    desc: "Cette semaine, créez un compte ChatGPT ou Claude. Posez 10 questions variées. Observez les réponses. Apprenez par la pratique."
+                },
+                {
+                    n: "02",
+                    title: "Identifiez une tâche à automatiser",
+                    desc: "Quelle corvée quotidienne vous épuise ? Comment l'IA pourrait-elle vous aider ? Testez une solution concrète."
+                },
+                {
+                    n: "03",
+                    title: "Partagez vos découvertes",
+                    desc: "Parlez de l'IA autour de vous. Aidez d'autres personnes à franchir le pas. L'apprentissage est collectif."
+                },
+                {
+                    n: "04",
+                    title: "Restez curieux et vigilant",
+                    desc: "Le domaine évolue chaque jour. Suivez l'actualité, mais gardez votre esprit critique. Ni technophobe, ni technophile aveugle : citoyen éclairé."
+                }
+            ];
+
+            const lessons = [
+                {
+                    title: "Compréhension",
+                    desc: "L'IA est un outil extraordinaire mais limité. Elle corrèle, ne comprend pas. Elle calcule, n'imagine pas vraiment. Connaître ses mécanismes vous rend plus efficace et plus prudent."
+                },
+                {
+                    title: "Maîtrise",
+                    desc: "Comme pour conduire une voiture, l'aisance vient avec la pratique. Expérimentez, affinez vos prompts, créez votre écosystème personnel. Chaque interaction vous rend meilleur."
+                },
+                {
+                    title: "Humanité",
+                    desc: "Ne devenez jamais un simple exécutant des suggestions de l'IA. Gardez votre esprit critique, votre créativité, votre empathie. C'est votre humanité qui fait la différence."
+                }
             ];
 
             return (
                 <Section id="next-steps" className="bg-gradient-to-br from-gray-900 via-blue-900/20 to-gray-900">
-                    <div className="max-w-6xl w-full">
+                    <div className="max-w-6xl w-full space-y-10">
                         <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-4">
-                            Votre nouvelle auto-école est ouverte
+                            Votre nouvelle auto-école est ouverte !
                         </h2>
-                        <p className="text-center text-gray-300 max-w-3xl mx-auto mb-10">
-                            L'avenir n'est pas à subir: il se construit. Prenez le volant avec puissance et prudence.
+                        <p className="text-center text-xl text-blue-200 font-semibold">Le voyage commence maintenant</p>
+                        <p className="text-center text-gray-300 max-w-4xl mx-auto">
+                            Nous voici arrivés au terme de cette conférence, mais votre apprentissage, lui, ne fait que commencer. Vous avez maintenant les clés pour comprendre l'IA, l'apprivoiser, et l'utiliser de manière éclairée et responsable.
                         </p>
+
+                        <div>
+                            <h3 className="text-2xl md:text-3xl font-bold text-white text-center mb-6">Les trois leçons essentielles à retenir</h3>
+                            <div className="grid md:grid-cols-3 gap-5">
+                                {lessons.map((item, idx) => (
+                                    <Card key={idx} className="p-5 h-full border-indigo-500/20">
+                                        <h4 className="text-xl font-bold text-white mb-2">{item.title}</h4>
+                                        <p className="text-gray-300 text-sm leading-relaxed">{item.desc}</p>
+                                    </Card>
+                                ))}
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 className="text-2xl md:text-3xl font-bold text-white text-center mb-6">Et maintenant ? Vos prochaines étapes</h3>
                         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4">
                             {steps.map((item, idx) => (
                                 <Card key={idx} className="p-5">
@@ -1623,6 +1670,11 @@
                                 </Card>
                             ))}
                         </div>
+                        </div>
+
+                        <Card className="border-blue-500/30 bg-blue-500/10 text-center">
+                            <p className="text-blue-200 text-2xl italic mb-2">"L'avenir n'est pas à subir, il est à construire."</p>
+                        </Card>
                     </div>
                 </Section>
             );
@@ -1797,71 +1849,34 @@
 
         const Conclusion = () => (
             <Section id="conclusion" className="relative bg-gradient-to-br from-gray-900 via-slate-900 to-gray-950">
-                <div className="max-w-6xl w-full relative z-10 space-y-10">
+                <div className="max-w-6xl w-full relative z-10 space-y-8">
                     <div className="text-center">
                         <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mx-auto mb-6 flex items-center justify-center shadow-lg">
                             <Mic className="text-white" size={40} />
                         </div>
                         <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">Conclusion : La clé du futur</h2>
-                        <p className="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto">
-                            Nous avons vu que l'IA n'est ni un monstre à craindre, ni un sauveur providentiel. C'est un outil extraordinairement puissant qui demande compréhension, pratique et sagesse.
-                        </p>
                     </div>
 
-                    <div className="grid lg:grid-cols-2 gap-6">
-                        <Card className="h-full">
-                            <h3 className="text-2xl font-bold text-white mb-3">Récapitulons notre voyage</h3>
-                            <p className="text-gray-300 leading-relaxed mb-3">
-                                De Turing aux usages quotidiens, des limites techniques aux promesses pédagogiques, des défis énergétiques aux enjeux géopolitiques, nous avons parcouru les dimensions essentielles de l'IA moderne.
-                            </p>
-                            <p className="text-gray-400 leading-relaxed">
-                                L'enjeu n'est pas seulement d'utiliser l'IA. L'enjeu est de l'utiliser avec discernement, en gardant l'humain au centre.
-                            </p>
-                        </Card>
-                        <Card className="h-full border-blue-500/30 bg-blue-500/10" delay={0.1}>
-                            <h3 className="text-2xl font-bold text-white mb-3">Le message final</h3>
-                            <p className="text-gray-200 leading-relaxed mb-3">
-                                L'avenir appartient à ceux qui sauront conjuguer la puissance de l'IA avec la sagesse humaine.
-                            </p>
-                            <p className="text-gray-300 leading-relaxed mb-3">
-                                Ni technophobes paralysés par la peur, ni technophiles aveugles aux risques : des citoyens éclairés, capables d'agir avec éthique et esprit critique.
-                            </p>
-                            <p className="text-blue-200 italic">
-                                "L'avenir appartient à ceux qui conjugueront puissance et prudence."
-                            </p>
-                        </Card>
-                    </div>
-
-                    <div className="grid md:grid-cols-3 gap-5">
-                        <Card className="border-cyan-500/30 bg-cyan-500/10">
-                            <h4 className="text-xl font-bold text-white mb-2">Comprendre</h4>
-                            <p className="text-gray-300 text-sm leading-relaxed">
-                                L'IA corrèle, elle ne comprend pas. Elle calcule, elle n'imagine pas. Connaître ses mécanismes permet de mieux l'utiliser.
-                            </p>
-                        </Card>
-                        <Card className="border-violet-500/30 bg-violet-500/10" delay={0.1}>
-                            <h4 className="text-xl font-bold text-white mb-2">Apprivoiser</h4>
-                            <p className="text-gray-300 text-sm leading-relaxed">
-                                Comme pour la conduite automobile, la maîtrise vient avec la pratique: testez, affinez vos prompts, construisez votre écosystème.
-                            </p>
-                        </Card>
-                        <Card className="border-emerald-500/30 bg-emerald-500/10" delay={0.2}>
-                            <h4 className="text-xl font-bold text-white mb-2">Rester maître</h4>
-                            <p className="text-gray-300 text-sm leading-relaxed">
-                                L'IA propose, l'humain décide. Vérifiez les informations et ne déléguez jamais votre jugement moral.
-                            </p>
-                        </Card>
-                    </div>
-
-                    <div className="p-8 bg-white/5 backdrop-blur rounded-2xl border border-white/10 text-center">
-                        <p className="text-2xl font-serif text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-pink-200 italic">
-                            "Apprendre à conduire l'IA, c'est apprendre à rester maître du volant."
+                    <Card className="border-blue-500/20 bg-blue-500/5">
+                        <p className="text-gray-200 leading-relaxed mb-4">
+                            Vous avez maintenant la clé. Vous savez que l'IA n'est ni un monstre à fuir, ni un sauveur providentiel, mais un outil puissant à maîtriser. Vous comprenez ses mécanismes, ses forces, ses limites. Vous avez des stratégies pour l'utiliser efficacement.
                         </p>
-                        <p className="text-gray-300 mt-4 max-w-4xl mx-auto leading-relaxed">
-                            Alors oui, prenez cette clé symbolique. Montez dans cette voiture qu'est l'intelligence artificielle. Apprenez à la conduire avec confiance. Mais surtout, ne lâchez jamais le volant: votre humanité, votre créativité, votre empathie et votre éthique doivent rester aux commandes.
+                        <p className="text-gray-300 leading-relaxed">
+                            Le monde change vite. L'intelligence artificielle va continuer à transformer nos vies, nos métiers, nos sociétés. Mais comment elle les transformera, cela dépend de nous tous. De nos choix individuels et collectifs. De notre sagesse à conjuguer puissance technologique et valeurs humaines.
                         </p>
-                        <p className="text-gray-200 mt-4 font-semibold">Le voyage ne fait que commencer. Bonne route à tous.</p>
-                    </div>
+                    </Card>
+
+                    <Card className="text-center border-white/15">
+                        <p className="text-2xl text-blue-200 italic mb-4">
+                            Alors oui, montez dans cette voiture. Prenez le volant. Et conduisez vers l'avenir que vous souhaitez construire.
+                        </p>
+                        <p className="text-gray-200 font-semibold text-lg">
+                            Merci pour votre attention. Bonne route à tous !
+                        </p>
+                        <p className="text-gray-300 mt-3">
+                            N'hésitez pas à me poser vos questions maintenant. Et restez pour la performance beatbox qui conclura notre voyage sur une note artistique et humaine !
+                        </p>
+                    </Card>
 
                     <div className="text-center">
                         <button
