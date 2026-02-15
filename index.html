@@ -1350,27 +1350,62 @@
                 <div className="max-w-6xl w-full flex flex-col md:flex-row gap-12 items-center">
                     <div className="md:w-1/2"><AdoptionChart /></div>
                     <div className="md:w-1/2 space-y-6">
-                        <h2 className="text-3xl md:text-4xl font-bold text-white">Énergie & Géopolitique</h2>
+                        <h2 className="text-3xl md:text-4xl font-bold text-white">Le coût énergétique de l'IA : brûler des kilowatts</h2>
                         <div className="flex items-center gap-4 text-yellow-400">
                             <Zap size={32} />
                             <span className="text-xl font-bold">L'IA brûle des kilowatts</span>
                         </div>
                         <p className="text-gray-400">
-                            Derrière chaque requête, des data centers massifs. L'IA peut consommer beaucoup, mais aussi aider à optimiser énergie, mobilité et climat si l'usage est intentionnel.
+                            Parlons maintenant d'un aspect souvent négligé mais crucial de l'intelligence artificielle : son empreinte énergétique. Derrière l'élégance apparente d'une conversation avec ChatGPT ou la magie de la génération d'images, se cachent des infrastructures massives qui consomment des quantités colossales d'électricité.
                         </p>
-                        <div className="grid grid-cols-3 gap-3">
+                        <h3 className="text-xl font-bold text-white">Les chiffres qui donnent le vertige</h3>
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                             <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-center">
                                 <p className="text-yellow-300 font-bold text-lg">10MW</p>
-                                <p className="text-[11px] text-gray-400">Data center IA</p>
+                                <p className="text-[11px] text-gray-300">Consommation d'un data center d'IA</p>
+                                <p className="text-[11px] text-gray-500 mt-1">Équivalent à plusieurs milliers de foyers</p>
                             </div>
                             <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-center">
                                 <p className="text-yellow-300 font-bold text-lg">500t</p>
-                                <p className="text-[11px] text-gray-400">CO2 entraînement</p>
+                                <p className="text-[11px] text-gray-300">CO2 pour entraîner un grand modèle</p>
+                                <p className="text-[11px] text-gray-500 mt-1">Comme cinq voitures sur toute leur durée de vie</p>
                             </div>
                             <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-center">
                                 <p className="text-yellow-300 font-bold text-lg">2.6kWh</p>
-                                <p className="text-[11px] text-gray-400">/1000 requêtes</p>
+                                <p className="text-[11px] text-gray-300">Énergie par 1000 requêtes</p>
+                                <p className="text-[11px] text-gray-500 mt-1">Comme faire bouillir l'eau pour ~30 tasses de thé</p>
                             </div>
+                        </div>
+
+                        <div className="space-y-4">
+                            <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                                <h4 className="text-white font-bold mb-1">L'entraînement : la phase la plus coûteuse</h4>
+                                <p className="text-gray-300 text-sm">
+                                    Créer un modèle de langage comme GPT-4 ou Claude nécessite de faire tourner des milliers de GPU pendant des semaines, voire des mois. Cette phase d'apprentissage consomme énormément d'électricité et de refroidissement.
+                                </p>
+                                <p className="text-gray-400 text-sm mt-2">
+                                    Heureusement, cette phase n'a lieu qu'une seule fois par modèle. Mais avec la course à l'IA, de nouveaux modèles sont créés constamment, multipliant cet impact.
+                                </p>
+                            </div>
+
+                            <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                                <h4 className="text-white font-bold mb-1">L'utilisation : des millions de micro-consommations</h4>
+                                <p className="text-gray-300 text-sm">
+                                    Chaque question que vous posez, chaque image que vous générez déclenche des calculs complexes sur des serveurs distants. Une requête individuelle consomme peu, mais multipliée par des millions d'utilisateurs quotidiens, l'addition devient vertigineuse.
+                                </p>
+                                <p className="text-yellow-200 italic mt-2">
+                                    "Chaque requête est un petit trajet en voiture numérique."
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30">
+                            <p className="text-gray-200 text-sm leading-relaxed">
+                                <strong>Réflexion écologique :</strong> cela ne signifie pas qu'il faut arrêter d'utiliser l'IA, mais plutôt l'utiliser avec intention. Privilégiez les requêtes vraiment utiles, consolidez vos questions, et utilisez des modèles plus légers quand c'est suffisant.
+                            </p>
+                            <p className="text-emerald-200 italic mt-2">
+                                "L'IA brûle des kilowatts, pas de la magie."
+                            </p>
                         </div>
                     </div>
                 </div>
