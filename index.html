@@ -1239,68 +1239,88 @@
         const RegulationBalance = () => (
             <Section className="bg-black">
                 <div className="max-w-6xl w-full">
-                    <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-4">
-                        Réguler sans freiner : l'équilibre délicat
-                    </h2>
-                    <p className="text-center text-gray-300 max-w-4xl mx-auto mb-10">
-                        La régulation de l'intelligence artificielle est l'un des défis les plus complexes de notre époque. Comment protéger les citoyens des dérives potentielles sans étouffer l'innovation ? Comment établir des règles dans un domaine qui évolue plus vite que les cycles législatifs ? Comment harmoniser les approches entre pays aux valeurs parfois contradictoires ?
-                    </p>
+                    <div className="text-center max-w-5xl mx-auto mb-10">
+                        <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-200 text-xs uppercase tracking-wider mb-4">
+                            <Gavel size={14} /> Gouvernance IA
+                        </div>
+                        <h2 className="text-3xl md:text-5xl font-bold text-white mb-4">
+                            Réguler sans freiner : l'équilibre délicat
+                        </h2>
+                        <p className="text-gray-300 leading-relaxed">
+                            La régulation de l'intelligence artificielle est l'un des défis les plus complexes de notre époque. Comment protéger les citoyens des dérives potentielles sans étouffer l'innovation ? Comment établir des règles dans un domaine qui évolue plus vite que les cycles législatifs ? Comment harmoniser les approches entre pays aux valeurs parfois contradictoires ?
+                        </p>
+                    </div>
 
-                    <h3 className="text-2xl font-bold text-white mb-4">Les enjeux de la régulation</h3>
                     <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mb-10">
-                        <Card className="p-4">
-                            <h3 className="font-bold text-white mb-2">Protection des données personnelles</h3>
+                        <Card className="p-5 border-blue-500/20">
+                            <p className="text-blue-300 font-mono text-xs mb-2">ENJEU 01</p>
+                            <h3 className="font-bold text-white mb-2">Protection des données</h3>
                             <p className="text-gray-400 text-sm">
-                                Empêcher l'utilisation abusive d'informations privées, garantir le consentement éclairé, assurer la transparence sur l'utilisation des données d'entraînement.
+                                Empêcher l'utilisation abusive d'informations privées, garantir le consentement éclairé et la transparence sur les données d'entraînement.
                             </p>
                         </Card>
-                        <Card className="p-4" delay={0.05}>
-                            <h3 className="font-bold text-white mb-2">Prévention des biais et discriminations</h3>
+                        <Card className="p-5 border-pink-500/20" delay={0.05}>
+                            <p className="text-pink-300 font-mono text-xs mb-2">ENJEU 02</p>
+                            <h3 className="font-bold text-white mb-2">Biais et discriminations</h3>
                             <p className="text-gray-400 text-sm">
-                                Obliger les créateurs d'IA à auditer leurs systèmes, détecter et corriger les biais discriminatoires, assurer l'équité des décisions automatisées.
+                                Obliger les créateurs d'IA à auditer leurs systèmes, détecter et corriger les biais, assurer l'équité des décisions automatisées.
                             </p>
                         </Card>
-                        <Card className="p-4" delay={0.1}>
+                        <Card className="p-5 border-yellow-500/20" delay={0.1}>
+                            <p className="text-yellow-300 font-mono text-xs mb-2">ENJEU 03</p>
                             <h3 className="font-bold text-white mb-2">Responsabilité et traçabilité</h3>
                             <p className="text-gray-400 text-sm">
-                                Établir qui est responsable en cas d'erreur de l'IA, garantir la capacité d'auditer les décisions, maintenir un contrôle humain sur les décisions critiques.
+                                Établir qui est responsable en cas d'erreur, garantir l'auditabilité et maintenir un contrôle humain sur les décisions critiques.
                             </p>
                         </Card>
-                        <Card className="p-4" delay={0.15}>
+                        <Card className="p-5 border-emerald-500/20" delay={0.15}>
+                            <p className="text-emerald-300 font-mono text-xs mb-2">ENJEU 04</p>
                             <h3 className="font-bold text-white mb-2">Sécurité et robustesse</h3>
                             <p className="text-gray-400 text-sm">
-                                Prévenir les manipulations malveillantes, tester la résilience des systèmes, établir des normes de sécurité minimales.
+                                Prévenir les manipulations malveillantes, tester la résilience des systèmes et fixer des normes minimales de sécurité.
                             </p>
                         </Card>
                     </div>
 
-                    <div className="grid md:grid-cols-2 gap-6">
-                        <Card className="border-orange-500/30">
-                            <h3 className="text-xl font-bold text-white mb-2">Le risque de la sur-régulation</h3>
-                            <p className="text-gray-400 text-sm leading-relaxed">
-                                Des règles trop strictes, trop complexes ou trop rigides peuvent étouffer l'innovation. Les startups et les chercheurs ont besoin d'espace pour expérimenter, échouer, apprendre. Une régulation excessive avantage les géants technologiques qui ont les moyens de s'y conformer, au détriment des petits acteurs innovants.
+                    <div className="grid md:grid-cols-2 gap-6 mb-8">
+                        <Card className="border-orange-500/30 bg-orange-500/5">
+                            <h3 className="text-xl font-bold text-white mb-3">Le risque de la sur-régulation</h3>
+                            <p className="text-gray-300 text-sm leading-relaxed">
+                                Des règles trop strictes, trop complexes ou trop rigides peuvent étouffer l'innovation. Les startups et les chercheurs ont besoin d'espace pour expérimenter, échouer, apprendre. Une régulation excessive avantage les géants technologiques capables d'absorber la conformité.
                             </p>
                         </Card>
-                        <Card className="border-red-500/30" delay={0.1}>
-                            <h3 className="text-xl font-bold text-white mb-2">Le danger de la sous-régulation</h3>
-                            <p className="text-gray-400 text-sm leading-relaxed">
-                                À l'inverse, un "far west" numérique sans garde-fous expose les citoyens à des risques majeurs : surveillance de masse, manipulation, discrimination algorithmique, perte de contrôle sur les données personnelles. Le marché seul ne garantit pas l'éthique.
+                        <Card className="border-red-500/30 bg-red-500/5" delay={0.1}>
+                            <h3 className="text-xl font-bold text-white mb-3">Le danger de la sous-régulation</h3>
+                            <p className="text-gray-300 text-sm leading-relaxed">
+                                À l'inverse, un "far west" numérique sans garde-fous expose les citoyens à des risques majeurs : surveillance de masse, manipulation, discrimination algorithmique, perte de contrôle sur les données personnelles.
                             </p>
                         </Card>
                     </div>
 
-                    <Card className="mt-8 border-blue-500/30">
+                    <div className="grid md:grid-cols-3 gap-4 mb-8">
+                        <Card className="p-4">
+                            <h4 className="text-white font-bold mb-2">Protéger</h4>
+                            <p className="text-gray-400 text-sm">Droits fondamentaux, recours, transparence.</p>
+                        </Card>
+                        <Card className="p-4" delay={0.05}>
+                            <h4 className="text-white font-bold mb-2">Permettre</h4>
+                            <p className="text-gray-400 text-sm">Expérimentation, innovation, accès des PME.</p>
+                        </Card>
+                        <Card className="p-4" delay={0.1}>
+                            <h4 className="text-white font-bold mb-2">Superviser</h4>
+                            <p className="text-gray-400 text-sm">Audit continu, tests, amélioration du cadre.</p>
+                        </Card>
+                    </div>
+
+                    <Card className="border-blue-500/30">
                         <p className="text-blue-200 text-xl italic mb-3">
                             "Mieux vaut des feux rouges que des chaînes."
                         </p>
-                        <p className="text-gray-300 text-sm leading-relaxed">
-                            La bonne régulation n'est pas celle qui interdit, mais celle qui guide. Des feux de signalisation permettent une circulation fluide et sûre. Des chaînes immobilisent complètement. L'objectif est de créer un cadre qui protège sans paralyser, qui responsabilise sans écraser, qui oriente sans dicter.
+                        <p className="text-gray-300 text-sm leading-relaxed mb-3">
+                            La bonne régulation n'est pas celle qui interdit, mais celle qui guide. Des feux de signalisation permettent une circulation fluide et sûre. Des chaînes immobilisent complètement.
                         </p>
-                    </Card>
-
-                    <Card className="mt-6 border-purple-500/30" delay={0.1}>
                         <p className="text-gray-200 text-sm leading-relaxed">
-                            <strong>Question ouverte :</strong> Peut-on réguler efficacement sans ralentir l'innovation ? C'est le grand défi de nos démocraties. La réponse nécessite un dialogue constant entre législateurs, technologues, citoyens et éthiciens. Personne ne détient la vérité absolue, mais ensemble, nous pouvons construire un cadre juste et efficace.
+                            <strong>Question ouverte :</strong> Peut-on réguler efficacement sans ralentir l'innovation ? C'est le grand défi de nos démocraties. La réponse nécessite un dialogue constant entre législateurs, technologues, citoyens et éthiciens.
                         </p>
                     </Card>
                 </div>
