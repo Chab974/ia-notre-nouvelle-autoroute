@@ -1347,64 +1347,119 @@
 
         const Consumption = () => (
             <Section className="bg-black">
-                <div className="max-w-6xl w-full flex flex-col md:flex-row gap-12 items-center">
-                    <div className="md:w-1/2"><AdoptionChart /></div>
-                    <div className="md:w-1/2 space-y-6">
-                        <h2 className="text-3xl md:text-4xl font-bold text-white">Le coût énergétique de l'IA : brûler des kilowatts</h2>
-                        <div className="flex items-center gap-4 text-yellow-400">
-                            <Zap size={32} />
-                            <span className="text-xl font-bold">L'IA brûle des kilowatts</span>
-                        </div>
-                        <p className="text-gray-400">
-                            Parlons maintenant d'un aspect souvent négligé mais crucial de l'intelligence artificielle : son empreinte énergétique. Derrière l'élégance apparente d'une conversation avec ChatGPT ou la magie de la génération d'images, se cachent des infrastructures massives qui consomment des quantités colossales d'électricité.
-                        </p>
-                        <h3 className="text-xl font-bold text-white">Les chiffres qui donnent le vertige</h3>
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                            <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-center">
-                                <p className="text-yellow-300 font-bold text-lg">10MW</p>
-                                <p className="text-[11px] text-gray-300">Consommation d'un data center d'IA</p>
-                                <p className="text-[11px] text-gray-500 mt-1">Équivalent à plusieurs milliers de foyers</p>
+                <div className="max-w-6xl w-full space-y-12">
+                    <div className="flex flex-col md:flex-row gap-12 items-center">
+                        <div className="md:w-1/2"><AdoptionChart /></div>
+                        <div className="md:w-1/2 space-y-6">
+                            <h2 className="text-3xl md:text-4xl font-bold text-white">Le coût énergétique de l'IA : brûler des kilowatts</h2>
+                            <div className="flex items-center gap-4 text-yellow-400">
+                                <Zap size={32} />
+                                <span className="text-xl font-bold">L'IA brûle des kilowatts</span>
                             </div>
-                            <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-center">
-                                <p className="text-yellow-300 font-bold text-lg">500t</p>
-                                <p className="text-[11px] text-gray-300">CO2 pour entraîner un grand modèle</p>
-                                <p className="text-[11px] text-gray-500 mt-1">Comme cinq voitures sur toute leur durée de vie</p>
-                            </div>
-                            <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-center">
-                                <p className="text-yellow-300 font-bold text-lg">2.6kWh</p>
-                                <p className="text-[11px] text-gray-300">Énergie par 1000 requêtes</p>
-                                <p className="text-[11px] text-gray-500 mt-1">Comme faire bouillir l'eau pour ~30 tasses de thé</p>
-                            </div>
-                        </div>
-
-                        <div className="space-y-4">
-                            <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-                                <h4 className="text-white font-bold mb-1">L'entraînement : la phase la plus coûteuse</h4>
-                                <p className="text-gray-300 text-sm">
-                                    Créer un modèle de langage comme GPT-4 ou Claude nécessite de faire tourner des milliers de GPU pendant des semaines, voire des mois. Cette phase d'apprentissage consomme énormément d'électricité et de refroidissement.
-                                </p>
-                                <p className="text-gray-400 text-sm mt-2">
-                                    Heureusement, cette phase n'a lieu qu'une seule fois par modèle. Mais avec la course à l'IA, de nouveaux modèles sont créés constamment, multipliant cet impact.
-                                </p>
-                            </div>
-
-                            <div className="p-4 rounded-xl bg-white/5 border border-white/10">
-                                <h4 className="text-white font-bold mb-1">L'utilisation : des millions de micro-consommations</h4>
-                                <p className="text-gray-300 text-sm">
-                                    Chaque question que vous posez, chaque image que vous générez déclenche des calculs complexes sur des serveurs distants. Une requête individuelle consomme peu, mais multipliée par des millions d'utilisateurs quotidiens, l'addition devient vertigineuse.
-                                </p>
-                                <p className="text-yellow-200 italic mt-2">
-                                    "Chaque requête est un petit trajet en voiture numérique."
-                                </p>
-                            </div>
-                        </div>
-
-                        <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30">
-                            <p className="text-gray-200 text-sm leading-relaxed">
-                                <strong>Réflexion écologique :</strong> cela ne signifie pas qu'il faut arrêter d'utiliser l'IA, mais plutôt l'utiliser avec intention. Privilégiez les requêtes vraiment utiles, consolidez vos questions, et utilisez des modèles plus légers quand c'est suffisant.
+                            <p className="text-gray-400">
+                                Parlons maintenant d'un aspect souvent négligé mais crucial de l'intelligence artificielle : son empreinte énergétique. Derrière l'élégance apparente d'une conversation avec ChatGPT ou la magie de la génération d'images, se cachent des infrastructures massives qui consomment des quantités colossales d'électricité.
                             </p>
-                            <p className="text-emerald-200 italic mt-2">
-                                "L'IA brûle des kilowatts, pas de la magie."
+                            <h3 className="text-xl font-bold text-white">Les chiffres qui donnent le vertige</h3>
+                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                                <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-center">
+                                    <p className="text-yellow-300 font-bold text-lg">10MW</p>
+                                    <p className="text-[11px] text-gray-300">Consommation d'un data center d'IA</p>
+                                    <p className="text-[11px] text-gray-500 mt-1">Équivalent à plusieurs milliers de foyers</p>
+                                </div>
+                                <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-center">
+                                    <p className="text-yellow-300 font-bold text-lg">500t</p>
+                                    <p className="text-[11px] text-gray-300">CO2 pour entraîner un grand modèle</p>
+                                    <p className="text-[11px] text-gray-500 mt-1">Comme cinq voitures sur toute leur durée de vie</p>
+                                </div>
+                                <div className="p-3 rounded-xl bg-white/5 border border-white/10 text-center">
+                                    <p className="text-yellow-300 font-bold text-lg">2.6kWh</p>
+                                    <p className="text-[11px] text-gray-300">Énergie par 1000 requêtes</p>
+                                    <p className="text-[11px] text-gray-500 mt-1">Comme faire bouillir l'eau pour ~30 tasses de thé</p>
+                                </div>
+                            </div>
+
+                            <div className="space-y-4">
+                                <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                                    <h4 className="text-white font-bold mb-1">L'entraînement : la phase la plus coûteuse</h4>
+                                    <p className="text-gray-300 text-sm">
+                                        Créer un modèle de langage comme GPT-4 ou Claude nécessite de faire tourner des milliers de GPU pendant des semaines, voire des mois. Cette phase d'apprentissage consomme énormément d'électricité et de refroidissement.
+                                    </p>
+                                    <p className="text-gray-400 text-sm mt-2">
+                                        Heureusement, cette phase n'a lieu qu'une seule fois par modèle. Mais avec la course à l'IA, de nouveaux modèles sont créés constamment, multipliant cet impact.
+                                    </p>
+                                </div>
+
+                                <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                                    <h4 className="text-white font-bold mb-1">L'utilisation : des millions de micro-consommations</h4>
+                                    <p className="text-gray-300 text-sm">
+                                        Chaque question que vous posez, chaque image que vous générez déclenche des calculs complexes sur des serveurs distants. Une requête individuelle consomme peu, mais multipliée par des millions d'utilisateurs quotidiens, l'addition devient vertigineuse.
+                                    </p>
+                                    <p className="text-yellow-200 italic mt-2">
+                                        "Chaque requête est un petit trajet en voiture numérique."
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="p-4 rounded-xl bg-emerald-500/10 border border-emerald-500/30">
+                                <p className="text-gray-200 text-sm leading-relaxed">
+                                    <strong>Réflexion écologique :</strong> cela ne signifie pas qu'il faut arrêter d'utiliser l'IA, mais plutôt l'utiliser avec intention. Privilégiez les requêtes vraiment utiles, consolidez vos questions, et utilisez des modèles plus légers quand c'est suffisant.
+                                </p>
+                                <p className="text-emerald-200 italic mt-2">
+                                    "L'IA brûle des kilowatts, pas de la magie."
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div className="space-y-6">
+                        <h2 className="text-3xl md:text-4xl font-bold text-white">
+                            La géopolitique des usages : qui adopte l'IA ?
+                        </h2>
+                        <p className="text-gray-300">
+                            L'adoption de l'intelligence artificielle ne se fait pas de manière uniforme à travers le monde. Les cultures, les infrastructures, les politiques publiques et les mentalités créent des paysages d'adoption très différents selon les régions. Comprendre ces dynamiques est essentiel pour anticiper l'avenir.
+                        </p>
+
+                        <h3 className="text-xl font-bold text-white">Les leaders mondiaux de l'adoption</h3>
+                        <div className="grid md:grid-cols-3 gap-4">
+                            <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                                <h4 className="text-red-300 font-bold mb-2">Chine</h4>
+                                <p className="text-sm text-gray-300">Taux d'adoption élevé dans les entreprises, porté par des investissements massifs de l'État.</p>
+                            </div>
+                            <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                                <h4 className="text-orange-300 font-bold mb-2">Inde</h4>
+                                <p className="text-sm text-gray-300">Croissance explosive de l'utilisation, notamment dans les services et la technologie.</p>
+                            </div>
+                            <div className="p-4 rounded-xl bg-white/5 border border-white/10">
+                                <h4 className="text-blue-300 font-bold mb-2">France</h4>
+                                <p className="text-sm text-gray-300">Adoption progressive, avec un accent sur la régulation et l'éthique.</p>
+                            </div>
+                        </div>
+
+                        <div className="grid md:grid-cols-2 gap-6">
+                            <div className="p-5 rounded-xl bg-white/5 border border-white/10">
+                                <h4 className="text-white font-bold mb-2">L'approche asiatique : vitesse et volume</h4>
+                                <p className="text-sm text-gray-300 leading-relaxed">
+                                    La Chine et l'Inde misent sur une adoption rapide et massive. Investissements publics colossaux, intégration dans l'éducation dès le plus jeune âge, utilisation généralisée dans l'industrie et les services. L'objectif : devenir les superpuissances de l'IA.
+                                </p>
+                                <p className="text-sm text-gray-400 mt-2">
+                                    Cette approche privilégie la rapidité d'adoption sur les questions éthiques, créant des opportunités immenses mais aussi des risques de surveillance et de contrôle social.
+                                </p>
+                            </div>
+                            <div className="p-5 rounded-xl bg-white/5 border border-white/10">
+                                <h4 className="text-white font-bold mb-2">L'approche européenne : prudence et régulation</h4>
+                                <p className="text-sm text-gray-300 leading-relaxed">
+                                    L'Europe, et la France en particulier, adoptent une posture plus prudente. L'accent est mis sur la protection des données personnelles, l'éthique de l'IA, la transparence des algorithmes. Le RGPD et les futures régulations européennes de l'IA en témoignent.
+                                </p>
+                                <p className="text-sm text-gray-400 mt-2">
+                                    Cette approche peut sembler plus lente, mais elle vise à construire une IA plus responsable et respectueuse des valeurs démocratiques.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div className="p-5 rounded-xl bg-blue-500/10 border border-blue-500/30">
+                            <p className="text-blue-200 italic text-lg">"Nous ne gagnerons pas en taille, mais en agilité."</p>
+                            <p className="text-gray-300 text-sm mt-2 leading-relaxed">
+                                La France compte 66 millions d'habitants potentiellement utilisateurs d'IA. C'est beaucoup, mais c'est peu face aux 1,4 milliard de Chinois ou d'Indiens. Notre force ne sera jamais le nombre, mais la qualité de nos usages, l'innovation dans les applications, et notre capacité à développer une IA éthique et respectueuse qui pourrait devenir un modèle mondial.
                             </p>
                         </div>
                     </div>
