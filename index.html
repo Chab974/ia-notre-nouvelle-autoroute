@@ -1526,31 +1526,88 @@
         );
 
         const Conclusion = () => (
-            <Section className="relative">
-                <div className="text-center max-w-3xl mx-auto relative z-10">
-                    <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mx-auto mb-8 flex items-center justify-center shadow-lg">
-                        <Mic className="text-white" size={40} />
-                    </div>
-                    <h2 className="text-4xl md:text-6xl font-bold text-white mb-8">Vous êtes le conducteur.</h2>
-                    <p className="text-xl text-gray-300 mb-12">L'avenir n'est pas écrit par les algorithmes. Il se construit par nos choix.</p>
-                    <div className="p-8 bg-white/5 backdrop-blur rounded-2xl border border-white/10">
-                        <p className="text-2xl font-serif text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-pink-200 italic">
-                            "L'humain reste l'artiste. L'IA reste l'outil.<br/>Ne confondons jamais les deux."
+            <Section className="relative bg-gradient-to-br from-gray-900 via-slate-900 to-gray-950">
+                <div className="max-w-6xl w-full relative z-10 space-y-10">
+                    <div className="text-center">
+                        <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mx-auto mb-6 flex items-center justify-center shadow-lg">
+                            <Mic className="text-white" size={40} />
+                        </div>
+                        <h2 className="text-4xl md:text-6xl font-bold text-white mb-4">Conclusion : La clé du futur</h2>
+                        <p className="text-lg md:text-xl text-gray-300 max-w-4xl mx-auto">
+                            Nous avons vu que l'IA n'est ni un monstre à craindre, ni un sauveur providentiel. C'est un outil extraordinairement puissant qui demande compréhension, pratique et sagesse.
                         </p>
                     </div>
-                    <button
-                        onClick={() => {
-                            const container = document.querySelector('.snap-container');
-                            if (container) {
-                                container.scrollTo({ top: 0, behavior: 'smooth' });
-                                return;
-                            }
-                            window.scrollTo({ top: 0, behavior: 'smooth' });
-                        }}
-                        className="mt-12 px-8 py-3 bg-white text-gray-900 rounded-full font-bold hover:bg-gray-200 transition-colors"
-                    >
-                        Reprendre la route
-                    </button>
+
+                    <div className="grid lg:grid-cols-2 gap-6">
+                        <Card className="h-full">
+                            <h3 className="text-2xl font-bold text-white mb-3">Récapitulons notre voyage</h3>
+                            <p className="text-gray-300 leading-relaxed mb-3">
+                                De Turing aux usages quotidiens, des limites techniques aux promesses pédagogiques, des défis énergétiques aux enjeux géopolitiques, nous avons parcouru les dimensions essentielles de l'IA moderne.
+                            </p>
+                            <p className="text-gray-400 leading-relaxed">
+                                L'enjeu n'est pas seulement d'utiliser l'IA. L'enjeu est de l'utiliser avec discernement, en gardant l'humain au centre.
+                            </p>
+                        </Card>
+                        <Card className="h-full border-blue-500/30 bg-blue-500/10" delay={0.1}>
+                            <h3 className="text-2xl font-bold text-white mb-3">Le message final</h3>
+                            <p className="text-gray-200 leading-relaxed mb-3">
+                                L'avenir appartient à ceux qui sauront conjuguer la puissance de l'IA avec la sagesse humaine.
+                            </p>
+                            <p className="text-gray-300 leading-relaxed mb-3">
+                                Ni technophobes paralysés par la peur, ni technophiles aveugles aux risques : des citoyens éclairés, capables d'agir avec éthique et esprit critique.
+                            </p>
+                            <p className="text-blue-200 italic">
+                                "L'avenir appartient à ceux qui conjugueront puissance et prudence."
+                            </p>
+                        </Card>
+                    </div>
+
+                    <div className="grid md:grid-cols-3 gap-5">
+                        <Card className="border-cyan-500/30 bg-cyan-500/10">
+                            <h4 className="text-xl font-bold text-white mb-2">Comprendre</h4>
+                            <p className="text-gray-300 text-sm leading-relaxed">
+                                L'IA corrèle, elle ne comprend pas. Elle calcule, elle n'imagine pas. Connaître ses mécanismes permet de mieux l'utiliser.
+                            </p>
+                        </Card>
+                        <Card className="border-violet-500/30 bg-violet-500/10" delay={0.1}>
+                            <h4 className="text-xl font-bold text-white mb-2">Apprivoiser</h4>
+                            <p className="text-gray-300 text-sm leading-relaxed">
+                                Comme pour la conduite automobile, la maîtrise vient avec la pratique: testez, affinez vos prompts, construisez votre écosystème.
+                            </p>
+                        </Card>
+                        <Card className="border-emerald-500/30 bg-emerald-500/10" delay={0.2}>
+                            <h4 className="text-xl font-bold text-white mb-2">Rester maître</h4>
+                            <p className="text-gray-300 text-sm leading-relaxed">
+                                L'IA propose, l'humain décide. Vérifiez les informations et ne déléguez jamais votre jugement moral.
+                            </p>
+                        </Card>
+                    </div>
+
+                    <div className="p-8 bg-white/5 backdrop-blur rounded-2xl border border-white/10 text-center">
+                        <p className="text-2xl font-serif text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-pink-200 italic">
+                            "Apprendre à conduire l'IA, c'est apprendre à rester maître du volant."
+                        </p>
+                        <p className="text-gray-300 mt-4 max-w-4xl mx-auto leading-relaxed">
+                            Alors oui, prenez cette clé symbolique. Montez dans cette voiture qu'est l'intelligence artificielle. Apprenez à la conduire avec confiance. Mais surtout, ne lâchez jamais le volant: votre humanité, votre créativité, votre empathie et votre éthique doivent rester aux commandes.
+                        </p>
+                        <p className="text-gray-200 mt-4 font-semibold">Le voyage ne fait que commencer. Bonne route à tous.</p>
+                    </div>
+
+                    <div className="text-center">
+                        <button
+                            onClick={() => {
+                                const container = document.querySelector('.snap-container');
+                                if (container) {
+                                    container.scrollTo({ top: 0, behavior: 'smooth' });
+                                    return;
+                                }
+                                window.scrollTo({ top: 0, behavior: 'smooth' });
+                            }}
+                            className="mt-4 px-8 py-3 bg-white text-gray-900 rounded-full font-bold hover:bg-gray-200 transition-colors"
+                        >
+                            Reprendre la route
+                        </button>
+                    </div>
                 </div>
             </Section>
         );
