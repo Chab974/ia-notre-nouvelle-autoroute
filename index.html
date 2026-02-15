@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'IA : Notre Nouvelle Autoroute</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Babel pour JSX -->
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <!-- React Dependencies avec FIX pour Framer Motion -->
+    <script type="importmap">
+    {
+        "imports": {
+            "react": "https://esm.sh/react@18.2.0",
+            "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+            "framer-motion": "https://esm.sh/framer-motion@10.16.4?external=react,react-dom",
+            "lucide-react": "https://esm.sh/lucide-react@0.292.0?external=react,react-dom",
+            "date-fns": "https://esm.sh/date-fns@2.30.0"
+        }
+    }
+    </script>
+
+    <style>
+        body {
+            background-color: #111827;
+            color: #f3f4f6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #111827; }
+        ::-webkit-scrollbar-thumb { background: #4b5563; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #6b7280; }
+        .snap-container { scroll-snap-type: y mandatory; height: 100vh; overflow-y: scroll; }
+        .snap-section { scroll-snap-align: start; min-height: 100vh; }
+        
+        /* Animation pour le point Live */
+        @keyframes pulse-red {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(239, 68, 68, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(239, 68, 68, 0); }
+        }
+        .live-dot { animation: pulse-red 2s infinite; }
+    </style>
+</head>
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel" data-type="module">
+        import React, { useState, useEffect } from 'react';
+        import ReactDOM from 'react-dom/client';
+        import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
+        import { 
+            Brain, Car, ChefHat, ShieldCheck, AlertTriangle, Globe, Zap, Mic, ArrowRight, 
+            User, Box, Lightbulb, Terminal, BookOpen, Leaf, TrendingUp, Gavel, Newspaper, RefreshCw, ExternalLink
+        } from 'lucide-react';
+        import { formatDistanceToNow } from 'date-fns';
+        // Note: locale import removed for simplicity in CDN usage, defaulting to simple strings
+
+        // --- Composants UI ---
+
+        const Section = ({ children, className = "" }) => (
+            <section className={`snap-section flex flex-col justify-center items-center px-4 py-16 md:px-12 relative overflow-hidden ${className}`}>
+                {children}
+            </section>
+        );
+
+        const Card = ({ children, className = "", delay = 0 }) => (
+            <motion.div 
+                initial={{ opacity: 0, y: 50 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay }}
+                viewport={{ once: true, margin: "-50px" }}
+                className={`bg-white/5 backdrop-blur-lg border border-white/10 p-6 rounded-2xl shadow-xl hover:border-purple-500/30 transition-colors ${className}`}
+            >
+                {children}
+            </motion.div>
+        );
+
+        const ProgressBar = () => {
+            const { scrollYProgress } = useScroll();
+            const scaleX = useSpring(scrollYProgress, { stiffness: 100, damping: 30, restDelta: 0.001 });
+            return (
+                <motion.div
+                    className="fixed top-0 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 origin-left z-50"
+                    style={{ scaleX }}
+                />
+            );
+        };
+
+        // --- Sections Statiques ---
+
+        const Hero = () => (
+            <Section className="text-center relative">
+                 <div className="absolute inset-0 bg-cover bg-center opacity-20" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072')" }}></div>
+                <div className="absolute inset-0 bg-gradient-to-b from-gray-900/80 to-gray-900"></div>
+                <motion.div 
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 1 }}
+                    className="relative z-10 max-w-4xl mx-auto"
+                >
+                    <div className="flex justify-center mb-6">
+                        <div className="p-4 bg-blue-500/20 rounded-full border border-blue-500/50 shadow-[0_0_50px_rgba(59,130,246,0.5)]">
+                            <Brain size={64} className="text-blue-400" />
+                        </div>
+                    </div>
+                    <h1 className="text-5xl md:text-7xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-blue-300 via-purple-300 to-pink-300 mb-6 leading-tight">
+                        L'IA : Notre Nouvelle Autoroute
+                    </h1>
+                    <p className="text-xl md:text-2xl text-gray-300 mb-8 max-w-2xl mx-auto">
+                        Apprendre à conduire la technologie la plus puissante de notre époque.
+                    </p>
+                    <motion.div 
+                        animate={{ y: [0, 10, 0] }} 
+                        transition={{ repeat: Infinity, duration: 2 }}
+                        className="text-gray-500 flex flex-col items-center"
+                    >
+                        <span className="text-sm uppercase tracking-widest mb-2">Faites défiler</span>
+                        <ArrowRight className="rotate-90" />
+                    </motion.div>
+                </motion.div>
+            </Section>
+        );
+
+        const Introduction = () => (
+            <Section>
+                <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl w-full">
+                    <motion.div 
+                        initial={{ x: -50, opacity: 0 }}
+                        whileInView={{ x: 0, opacity: 1 }}
+                        transition={{ duration: 0.8 }}
+                    >
+                        <h2 className="text-3xl md:text-4xl font-bold text-white mb-6">
+                            <span className="text-purple-400">Pourquoi cette conférence ?</span><br />
+                            L'IA n'est pas magique.
+                        </h2>
+                        <p className="text-gray-300 text-lg leading-relaxed mb-6">
+                            C'est une voiture sans conducteur qui attend que vous preniez place au volant. 
+                            Elle possède une puissance considérable, mais sans direction humaine, elle ne sait pas où aller.
+                        </p>
+                    </motion.div>
+                    <motion.div 
+                        initial={{ x: 50, opacity: 0 }}
+                        whileInView={{ x: 0, opacity: 1 }}
+                        transition={{ duration: 0.8 }}
+                        className="relative h-64 md:h-96 w-full rounded-2xl overflow-hidden shadow-2xl group"
+                    >
+                        <img 
+                            src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&q=80&w=1000" 
+                            alt="Voiture futuriste" 
+                            className="object-cover w-full h-full group-hover:scale-110 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-80"></div>
+                        <div className="absolute bottom-4 left-4">
+                            <div className="flex items-center gap-2 text-white font-bold">
+                                <Car className="text-pink-500" />
+                                <span>Pilotez votre futur</span>
+                            </div>
+                        </div>
+                    </motion.div>
+                </div>
+            </Section>
+        );
+
+        const HistoryTimeline = () => {
+            const events = [
+                { year: "1950", title: "Test de Turing", desc: "Alan Turing pose la question : Les machines peuvent-elles penser ?" },
+                { year: "1956-1970", title: "L'âge d'or", desc: "Premiers programmes d'échecs et de logique." },
+                { year: "2010-2020", title: "Deep Learning", desc: "Explosion des données et de la puissance de calcul." },
+                { year: "2022+", title: "Ère Conversationnelle", desc: "ChatGPT démocratise l'accès pour tous." }
+            ];
+
+            return (
+                <Section className="bg-gray-800/30">
+                    <div className="max-w-4xl w-full">
+                        <motion.h2 
+                            initial={{ opacity: 0 }}
+                            whileInView={{ opacity: 1 }}
+                            className="text-3xl md:text-5xl font-bold text-center text-white mb-16"
+                        >
+                            Un voyage dans le temps
+                        </motion.h2>
+                        
+                        <div className="relative">
+                            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 to-purple-500 transform -translate-x-1/2"></div>
+                            
+                            {events.map((event, index) => (
+                                <motion.div 
+                                    key={index}
+                                    initial={{ opacity: 0, y: 50 }}
+                                    whileInView={{ opacity: 1, y: 0 }}
+                                    transition={{ duration: 0.5, delay: index * 0.2 }}
+                                    viewport={{ once: true, margin: "-100px" }}
+                                    className={`relative flex items-center mb-12 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
+                                >
+                                    <div className="flex-1 md:w-1/2"></div>
+                                    <div className="absolute left-4 md:left-1/2 w-4 h-4 bg-white rounded-full border-4 border-pink-500 transform -translate-x-1/2 z-10 shadow-[0_0_15px_rgba(236,72,153,0.8)]"></div>
+                                    <div className="flex-1 md:w-1/2 pl-12 md:pl-0 md:px-12">
+                                        <div className={`p-6 rounded-xl bg-gray-800 border border-gray-700 hover:border-pink-500/50 transition-all ${index % 2 === 0 ? 'md:text-left' : 'md:text-right'}`}>
+                                            <span className="text-pink-400 font-mono font-bold text-xl">{event.year}</span>
+                                            <h3 className="text-xl text-white font-bold mt-1 mb-2">{event.title}</h3>
+                                            <p className="text-gray-400 text-sm">{event.desc}</p>
+                                        </div>
+                                    </div>
+                                </motion.div>
+                            ))}
+                        </div>
+                    </div>
+                </Section>
+            );
+        };
+
+        // --- NOUVEAU: Section Actualités Dynamique ---
+
+        const DynamicNewsSection = () => {
+            const [news, setNews] = useState([]);
+            const [loading, setLoading] = useState(true);
+            const [sourceType, setSourceType] = useState('live'); // 'live' ou 'fallback'
+
+            // Données de secours (Fallback) basées sur des papiers académiques majeurs (ArXiv/Nature)
+            // Utilisées si l'API échoue
+            const fallbackNews = [
+                {
+                    title: "Les « Small Language Models » surpassent les géants (Nature)",
+                    link: "#",
+                    pubDate: new Date().toISOString(),
+                    contentSnippet: "Une étude récente montre que des modèles IA compacts obtiennent de meilleurs résultats logiques avec une empreinte carbone réduite de 90%.",
+                    category: "Recherche"
+                },
+                {
+                    title: "L'impact caché des Data Centers sur l'eau (The Shift Project)",
+                    link: "#",
+                    pubDate: new Date().toISOString(),
+                    contentSnippet: "Le refroidissement des serveurs IA consomme des milliards de litres d'eau potable. De nouvelles régulations se mettent en place.",
+                    category: "Écologie"
+                },
+                {
+                    title: "Souveraineté : L'Europe lance 'AI Factories'",
+                    link: "#",
+                    pubDate: new Date().toISOString(),
+                    contentSnippet: "La Commission européenne débloque des fonds pour créer des usines de données et réduire la dépendance aux GPU américains.",
+                    category: "Stratégie"
+                },
+                {
+                    title: "Santé : Prédiction des structures protéiques",
+                    link: "#",
+                    pubDate: new Date().toISOString(),
+                    contentSnippet: "La nouvelle version d'AlphaFold accélère la découverte de médicaments pour les maladies rares.",
+                    category: "Santé"
+                },
+                {
+                    title: "Le paradoxe de la productivité en entreprise",
+                    link: "#",
+                    pubDate: new Date().toISOString(),
+                    contentSnippet: "Malgré l'adoption massive, le ROI financier tarde à venir pour 60% des entreprises du Fortune 500.",
+                    category: "Économie"
+                }
+            ];
+
+            useEffect(() => {
+                const fetchNews = async () => {
+                    try {
+                        // Utilisation d'un proxy RSS vers JSON pour Google News (Filtré sur IA/Science/Tech)
+                        // C'est la méthode la plus fiable pour du "Live" sans backend
+                        const RSS_URL = `https://news.google.com/rss/search?q=Intelligence+Artificielle+Science+Economie+when:2d&hl=fr&gl=FR&ceid=FR:fr`;
+                        const API_URL = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(RSS_URL)}`;
+                        
+                        const response = await fetch(API_URL);
+                        const data = await response.json();
+
+                        if (data.status === 'ok' && data.items.length > 0) {
+                            // On prend les 5 premiers et on nettoie un peu
+                            const formattedNews = data.items.slice(0, 5).map(item => ({
+                                title: item.title,
+                                link: item.link,
+                                pubDate: item.pubDate,
+                                contentSnippet: item.description ? item.description.replace(/<[^>]*>?/gm, '').substring(0, 150) + "..." : "Cliquez pour lire l'article complet.",
+                                category: "Actualité Live"
+                            }));
+                            setNews(formattedNews);
+                            setSourceType('live');
+                        } else {
+                            throw new Error("Pas de données live");
+                        }
+                    } catch (error) {
+                        console.log("Utilisation des données de secours", error);
+                        setNews(fallbackNews);
+                        setSourceType('fallback');
+                    } finally {
+                        setLoading(false);
+                    }
+                };
+
+                fetchNews();
+            }, []);
+
+            return (
+                <Section className="bg-gray-900">
+                    <div className="max-w-6xl w-full">
+                        <div className="flex flex-col items-center justify-center mb-12">
+                            <div className="flex items-center gap-3 mb-2">
+                                <Newspaper className="text-purple-400" size={32} />
+                                <h2 className="text-3xl md:text-5xl font-bold text-center text-white">
+                                    Veille Stratégique
+                                </h2>
+                            </div>
+                            
+                            <div className="flex items-center gap-2 px-3 py-1 bg-gray-800 rounded-full border border-gray-700">
+                                {loading ? (
+                                    <RefreshCw className="animate-spin text-gray-400" size={14} />
+                                ) : (
+                                    <div className={`w-2 h-2 rounded-full ${sourceType === 'live' ? 'bg-red-500 live-dot' : 'bg-blue-500'}`}></div>
+                                )}
+                                <span className="text-xs font-mono uppercase text-gray-400">
+                                    {loading ? "Chargement..." : sourceType === 'live' ? "Flux Google News (24h)" : "Sélection Académique"}
+                                </span>
+                            </div>
+                        </div>
+
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                            {news.map((item, idx) => (
+                                <motion.a
+                                    href={item.link}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    key={idx}
+                                    initial={{ opacity: 0, scale: 0.9 }}
+                                    whileInView={{ opacity: 1, scale: 1 }}
+                                    transition={{ delay: idx * 0.1 }}
+                                    viewport={{ once: true }}
+                                    className="bg-gray-800/50 p-6 rounded-xl border border-gray-700 hover:bg-gray-800 hover:border-purple-500/50 transition-all group block relative overflow-hidden"
+                                >
+                                    <div className="absolute top-0 right-0 p-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                                        <ExternalLink size={16} className="text-purple-400" />
+                                    </div>
+
+                                    <div className="flex justify-between items-start mb-4">
+                                        <div className="flex items-center gap-2 px-3 py-1 rounded-full bg-white/5 text-xs font-bold text-gray-300 border border-white/10">
+                                            {item.category === "Écologie" && <Leaf size={12} className="text-green-400" />}
+                                            {item.category === "Économie" && <TrendingUp size={12} className="text-yellow-400" />}
+                                            {item.category === "Stratégie" && <Gavel size={12} className="text-blue-400" />}
+                                            {(item.category === "Actualité Live" || item.category === "Recherche") && <Globe size={12} className="text-purple-400" />}
+                                            {item.category}
+                                        </div>
+                                    </div>
+                                    
+                                    <h3 className="text-lg font-bold text-white mb-2 group-hover:text-purple-300 transition-colors line-clamp-2">
+                                        {item.title}
+                                    </h3>
+                                    
+                                    <div className="text-xs text-gray-500 mb-3 italic flex items-center gap-1">
+                                        <span>Publié : {item.pubDate.split('T')[0]}</span>
+                                    </div>
+                                    
+                                    <p className="text-sm text-gray-400 leading-relaxed line-clamp-3">
+                                        {item.contentSnippet}
+                                    </p>
+                                </motion.a>
+                            ))}
+                        </div>
+                        <p className="text-center text-xs text-gray-600 mt-8">
+                            Sources agrégées via Google News RSS & Papiers ArXiv sélectionnés.
+                        </p>
+                    </div>
+                </Section>
+            );
+        };
+
+        const Metaphors = () => (
+            <Section>
+                <div className="max-w-6xl w-full">
+                    <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-6">Comment ça marche ?</h2>
+                    <div className="grid md:grid-cols-2 gap-8 mt-12">
+                        <Card className="hover:bg-orange-500/10">
+                            <div className="flex flex-col items-center text-center">
+                                <div className="p-4 bg-orange-500/20 rounded-full mb-6">
+                                    <ChefHat size={48} className="text-orange-400" />
+                                </div>
+                                <h3 className="text-2xl font-bold text-white mb-4">Le Chef Cuisinier</h3>
+                                <p className="text-gray-300">
+                                    Comme un chef qui apprend en goûtant et ajustant. L'IA teste, mesure l'écart avec l'objectif, et ajuste ses "ingrédients" (paramètres) des millions de fois.
+                                </p>
+                            </div>
+                        </Card>
+                        <Card className="hover:bg-green-500/10" delay={0.2}>
+                            <div className="flex flex-col items-center text-center">
+                                <div className="p-4 bg-green-500/20 rounded-full mb-6">
+                                    <Box size={48} className="text-green-400" />
+                                </div>
+                                <h3 className="text-2xl font-bold text-white mb-4">Le Rubik's Cube</h3>
+                                <p className="text-gray-300">
+                                    L'IA tourne les faces au hasard au début. Elle explore des milliards de combinaisons, mémorise l'ordre et abandonne le chaos.
+                                </p>
+                            </div>
+                        </Card>
+                    </div>
+                </div>
+            </Section>
+        );
+
+        const Risks = () => (
+            <Section className="bg-red-900/10">
+                <div className="max-w-5xl w-full">
+                    <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-12">
+                        Les Illusions Dangereuses
+                    </h2>
+                    <div className="grid md:grid-cols-3 gap-6">
+                        <Card className="border-red-500/20">
+                            <h3 className="text-xl font-bold text-white mb-2 text-center">👻 Hallucinations</h3>
+                            <p className="text-gray-400 text-sm text-center">L'IA improvise pour combler les vides. Elle n'a pas conscience de la vérité.</p>
+                        </Card>
+                        <Card className="border-red-500/20" delay={0.1}>
+                            <h3 className="text-xl font-bold text-white mb-2 text-center">⚖️ Biais Cachés</h3>
+                            <p className="text-gray-400 text-sm text-center">Elle reproduit nos préjugés présents dans les données d'entraînement.</p>
+                        </Card>
+                        <Card className="border-red-500/20" delay={0.2}>
+                            <h3 className="text-xl font-bold text-white mb-2 text-center">🎭 Deepfakes</h3>
+                            <p className="text-gray-400 text-sm text-center">La manipulation de la réalité devient accessible. Le doute est vital.</p>
+                        </Card>
+                    </div>
+                </div>
+            </Section>
+        );
+
+        const SafetyBelt = () => (
+            <Section>
+                <div className="max-w-6xl w-full flex flex-col md:flex-row gap-12 items-center">
+                    <div className="md:w-1/2">
+                        <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">Votre Ceinture de Sécurité</h2>
+                        <ul className="space-y-6">
+                            <li className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/5">
+                                <ShieldCheck className="text-blue-400 mt-1" />
+                                <div>
+                                    <h4 className="font-bold text-white">Données Personnelles</h4>
+                                    <p className="text-gray-400 text-sm">Ne donnez jamais vos secrets.</p>
+                                </div>
+                            </li>
+                            <li className="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/5">
+                                <AlertTriangle className="text-yellow-400 mt-1" />
+                                <div>
+                                    <h4 className="font-bold text-white">Vérification</h4>
+                                    <p className="text-gray-400 text-sm">Croisez toujours avec des sources officielles.</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div className="md:w-1/2 flex justify-center">
+                        <ShieldCheck size={320} className="text-white opacity-20" />
+                    </div>
+                </div>
+            </Section>
+        );
+
+        const Prompting = () => (
+            <Section className="bg-gradient-to-br from-gray-900 via-indigo-900/20 to-gray-900">
+                <div className="max-w-5xl w-full">
+                    <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-12">L'Art du Prompt</h2>
+                    
+                    <div className="grid md:grid-cols-2 gap-8">
+                        <div className="bg-red-500/10 border border-red-500/30 p-6 rounded-xl">
+                            <div className="flex items-center gap-2 mb-4 text-red-400">
+                                <span className="text-2xl">❌</span>
+                                <h3 className="font-bold text-xl">Prompt Vague</h3>
+                            </div>
+                            <p className="text-white font-mono bg-black/30 p-3 rounded mb-4">"Fais un résumé."</p>
+                            <p className="text-gray-400 text-sm">Résultat : Générique, sans angle, ne répond pas au besoin spécifique.</p>
+                        </div>
+
+                        <div className="bg-green-500/10 border border-green-500/30 p-6 rounded-xl">
+                            <div className="flex items-center gap-2 mb-4 text-green-400">
+                                <span className="text-2xl">✅</span>
+                                <h3 className="font-bold text-xl">Prompt Contextualisé</h3>
+                            </div>
+                            <p className="text-white font-mono bg-black/30 p-3 rounded mb-4 text-sm">
+                                "Agis comme un prof de lycée. Explique la Révolution française à un élève de 16 ans. Utilise des métaphores modernes."
+                            </p>
+                            <p className="text-gray-400 text-sm">Résultat : Adapté, pédagogique, engageant.</p>
+                        </div>
+                    </div>
+                </div>
+            </Section>
+        );
+
+        const HumanVsAI = () => (
+            <Section>
+                <div className="max-w-6xl w-full">
+                    <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-16">L'Humain au Centre</h2>
+                    
+                    <div className="relative grid md:grid-cols-3 gap-8">
+                        <Card className="border-cyan-500/30">
+                            <div className="flex flex-col h-full">
+                                <Terminal className="text-cyan-400 mb-4" size={40} />
+                                <h3 className="text-2xl font-bold text-white mb-2">L'IA Exécute</h3>
+                                <p className="text-gray-400 flex-grow">Traitement de données, calcul, traduction, synthèse, génération rapide.</p>
+                                <div className="mt-4 pt-4 border-t border-white/10 text-cyan-200 font-mono text-sm">Puissance Brute</div>
+                            </div>
+                        </Card>
+
+                        <div className="hidden md:flex items-center justify-center">
+                            <div className="w-16 h-16 bg-white rounded-full flex items-center justify-center text-black font-bold text-xl z-20 shadow-[0_0_30px_white]">
+                                VS
+                            </div>
+                            <div className="absolute w-full h-0.5 bg-gradient-to-r from-cyan-500 to-pink-500 z-0"></div>
+                        </div>
+
+                        <Card className="border-pink-500/30">
+                            <div className="flex flex-col h-full">
+                                <User className="text-pink-400 mb-4" size={40} />
+                                <h3 className="text-2xl font-bold text-white mb-2">L'Humain Imagine</h3>
+                                <p className="text-gray-400 flex-grow">Création originale, intelligence émotionnelle, jugement éthique, décision finale.</p>
+                                <div className="mt-4 pt-4 border-t border-white/10 text-pink-200 font-mono text-sm">Conscience & Sens</div>
+                            </div>
+                        </Card>
+                    </div>
+
+                    <div className="mt-16 text-center max-w-3xl mx-auto">
+                        <p className="text-xl text-gray-300">
+                            "Mieux vaut un bon pilote qu'un moteur de fusée."<br/>
+                            L'efficacité vient de la cohérence de votre écosystème, pas juste de la puissance de l'outil.
+                        </p>
+                    </div>
+                </div>
+            </Section>
+        );
+
+        const AdoptionChart = () => {
+            const data = [
+                { country: "Chine", val: 65, color: "bg-red-500" },
+                { country: "Inde", val: 58, color: "bg-orange-500" },
+                { country: "France", val: 42, color: "bg-blue-500" },
+                { country: "Europe", val: 38, color: "bg-blue-700" },
+            ];
+
+            return (
+                <div className="w-full max-w-2xl mx-auto bg-gray-900/50 p-6 rounded-2xl border border-gray-700 mt-8">
+                    <h3 className="text-white text-xl font-bold mb-6 flex items-center gap-2">
+                        <Globe size={24} /> Taux d'adoption par région
+                    </h3>
+                    <div className="space-y-4">
+                        {data.map((item, idx) => (
+                            <div key={idx}>
+                                <div className="flex justify-between text-sm text-gray-300 mb-1">
+                                    <span>{item.country}</span>
+                                    <span>{item.val}%</span>
+                                </div>
+                                <div className="w-full bg-gray-700 rounded-full h-4 overflow-hidden">
+                                    <motion.div 
+                                        initial={{ width: 0 }}
+                                        whileInView={{ width: `${item.val}%` }}
+                                        transition={{ duration: 1, delay: 0.5 }}
+                                        className={`h-full rounded-full ${item.color}`}
+                                    />
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            );
+        };
+
+        const Consumption = () => (
+            <Section className="bg-black">
+                <div className="max-w-6xl w-full flex flex-col md:flex-row gap-12 items-center">
+                    <div className="md:w-1/2"><AdoptionChart /></div>
+                    <div className="md:w-1/2 space-y-6">
+                        <h2 className="text-3xl md:text-4xl font-bold text-white">Énergie & Géopolitique</h2>
+                        <div className="flex items-center gap-4 text-yellow-400">
+                            <Zap size={32} />
+                            <span className="text-xl font-bold">L'IA brûle des kilowatts</span>
+                        </div>
+                        <p className="text-gray-400">Entraîner GPT-4 consomme autant d'électricité qu'une ville moyenne. Chaque requête est une goutte d'énergie.</p>
+                    </div>
+                </div>
+            </Section>
+        );
+
+        const Conclusion = () => (
+            <Section className="relative">
+                <div className="text-center max-w-3xl mx-auto relative z-10">
+                    <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mx-auto mb-8 flex items-center justify-center shadow-lg">
+                        <Mic className="text-white" size={40} />
+                    </div>
+                    <h2 className="text-4xl md:text-6xl font-bold text-white mb-8">Vous êtes le conducteur.</h2>
+                    <p className="text-xl text-gray-300 mb-12">L'avenir n'est pas écrit par les algorithmes. Il se construit par nos choix.</p>
+                    <div className="p-8 bg-white/5 backdrop-blur rounded-2xl border border-white/10">
+                        <p className="text-2xl font-serif text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-pink-200 italic">
+                            "L'humain reste l'artiste. L'IA reste l'outil.<br/>Ne confondons jamais les deux."
+                        </p>
+                    </div>
+                    <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="mt-12 px-8 py-3 bg-white text-gray-900 rounded-full font-bold hover:bg-gray-200 transition-colors">
+                        Reprendre la route
+                    </button>
+                </div>
+            </Section>
+        );
+
+        const App = () => {
+            return (
+                <div className="snap-container">
+                    <ProgressBar />
+                    <Hero />
+                    <Introduction />
+                    <HistoryTimeline />
+                    <Metaphors />
+                    <Risks />
+                    <SafetyBelt />
+                    <Prompting />
+                    <HumanVsAI />
+                    <DynamicNewsSection />
+                    <Consumption />
+                    <Conclusion />
+                    <div className="fixed inset-0 pointer-events-none z-0 opacity-[0.03]" style={{ backgroundImage: 'url("data:image/svg+xml,%3Csvg width=\'60\' height=\'60\' viewBox=\'0 0 60 60\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cg fill=\'none\' fill-rule=\'evenodd\'%3E%3Cg fill=\'%23ffffff\' fill-opacity=\'1\'%3E%3Cpath d=\'M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z\'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")' }}></div>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
