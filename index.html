@@ -317,16 +317,40 @@
 
         const MachineLearningBasics = () => {
             const pipeline = [
-                { step: "1. Données", text: "Des exemples massifs (texte, image, audio) servent de base d'entraînement." },
-                { step: "2. Apprentissage", text: "Le modèle ajuste ses paramètres pour réduire ses erreurs." },
-                { step: "3. Optimisation", text: "Il affine progressivement ses prédictions et généralisations." },
-                { step: "4. Déploiement", text: "Le modèle répond sur des cas nouveaux qu'il n'a jamais vus." }
+                {
+                    step: "1. Données d'entraînement",
+                    text: "Des milliers ou millions d'exemples étiquetés : photos de chats, phrases traduites, parties d'échecs..."
+                },
+                {
+                    step: "2. Apprentissage",
+                    text: "Le système ajuste ses paramètres internes pour minimiser ses erreurs sur ces exemples."
+                },
+                {
+                    step: "3. Optimisation",
+                    text: "Affinage progressif jusqu'à atteindre un niveau de performance satisfaisant."
+                },
+                {
+                    step: "4. Déploiement",
+                    text: "Le modèle entraîné peut maintenant traiter de nouvelles données jamais vues auparavant."
+                }
             ];
 
             const methods = [
-                { name: "Supervisé", usage: "Classification, prédiction", hint: "Exemples avec bonnes réponses." },
-                { name: "Non supervisé", usage: "Clustering, anomalies", hint: "Recherche de structures cachées." },
-                { name: "Renforcement", usage: "Jeux, robotique", hint: "Essais/erreurs avec récompenses." }
+                {
+                    name: "Supervisé",
+                    desc: "On donne des exemples avec les bonnes réponses. Voici 10 000 photos de chats et de chiens, étiquetées. Apprends à les distinguer.",
+                    usage: "Usage : Classification, prédiction"
+                },
+                {
+                    name: "Non-supervisé",
+                    desc: "On donne des données sans étiquettes. Voici des données, trouve des patterns, des groupes, des structures cachées.",
+                    usage: "Usage : Clustering, détection d'anomalies"
+                },
+                {
+                    name: "Par renforcement",
+                    desc: "On définit un objectif et des récompenses. L'IA apprend par essai-erreur, comme un enfant qui apprend à marcher.",
+                    usage: "Usage : Jeux, robotique, optimisation"
+                }
             ];
 
             const aiTypesDetailed = [
@@ -356,9 +380,12 @@
             return (
                 <Section>
                     <div className="max-w-6xl w-full">
-                        <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-10">
-                            Comment l'IA apprend vraiment
+                        <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-4">
+                            Comment l'IA "apprend" : le machine learning expliqué simplement
                         </h2>
+                        <p className="text-center text-gray-300 max-w-4xl mx-auto mb-10">
+                            Le machine learning (apprentissage automatique) est le cœur de l'IA moderne. Plutôt que de programmer explicitement chaque règle, on laisse la machine découvrir les patterns par elle-même à partir d'exemples.
+                        </p>
                         <div className="grid md:grid-cols-2 gap-8">
                             <Card>
                                 <h3 className="text-2xl font-bold text-white mb-4">Le cycle d'apprentissage</h3>
@@ -372,20 +399,24 @@
                                 </div>
                             </Card>
                             <Card delay={0.1}>
-                                <h3 className="text-2xl font-bold text-white mb-4">3 approches majeures</h3>
+                                <h3 className="text-2xl font-bold text-white mb-4">Trois grandes approches d'apprentissage</h3>
                                 <div className="space-y-4">
                                     {methods.map((item, idx) => (
                                         <div key={idx} className="p-4 rounded-xl bg-white/5 border border-white/10">
-                                            <div className="flex items-center justify-between">
-                                                <p className="text-purple-300 font-bold">{item.name}</p>
-                                                <span className="text-xs text-gray-400">{item.usage}</span>
-                                            </div>
-                                            <p className="text-gray-300 text-sm mt-1">{item.hint}</p>
+                                            <p className="text-purple-300 font-bold">{item.name}</p>
+                                            <p className="text-gray-300 text-sm mt-2">{item.desc}</p>
+                                            <p className="text-xs text-blue-200 mt-2">{item.usage}</p>
                                         </div>
                                     ))}
                                 </div>
                             </Card>
                         </div>
+
+                        <Card className="mt-8 border-blue-500/30 bg-blue-500/10">
+                            <p className="text-gray-200 text-sm leading-relaxed">
+                                Ces méthodes peuvent être combinées pour créer des systèmes hybrides encore plus puissants. L'essentiel à retenir : l'IA moderne n'est pas programmée instruction par instruction, elle apprend des exemples, un peu comme nous apprenons par l'expérience.
+                            </p>
+                        </Card>
 
                         <div className="mt-10">
                             <h3 className="text-2xl md:text-3xl font-bold text-white text-center mb-6">
