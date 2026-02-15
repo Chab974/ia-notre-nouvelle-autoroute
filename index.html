@@ -862,7 +862,7 @@
                         L'art du "prompt" : bien communiquer avec l'IA
                     </h2>
                     <p className="text-center text-gray-300 max-w-4xl mx-auto mb-8">
-                        Le "prompt", c'est votre manière de formuler une demande à l'IA. C'est l'équivalent de donner des instructions à un collaborateur : la clarté et la précision de votre demande déterminent largement la qualité de la réponse.
+                        Le "prompt", c'est votre manière de formuler une demande à l'IA. C'est l'équivalent de donner des instructions à un collaborateur : la clarté et la précision de votre demande déterminent largement la qualité de la réponse. Trop vague, et vous obtiendrez une réponse générique. Trop complexe, et l'IA peut se perdre. Le bon prompt trouve l'équilibre.
                     </p>
 
                     <Card className="mb-8 border-blue-500/30">
@@ -896,11 +896,12 @@
                                 "Explique ce texte sur le réchauffement climatique à un lycéen curieux mais qui n'a pas de formation scientifique. Utilise des analogies simples et un ton pédagogique. Résume les 3 idées principales en 200 mots maximum."
                             </p>
                             <p className="text-gray-300 text-sm">
-                                <strong>Forces :</strong> public cible défini, ton précisé, contrainte de longueur, objectif clair.
+                                <strong>Forces :</strong> public cible défini, ton précisé, contrainte de longueur, objectif clair. L'IA sait exactement ce que vous attendez.
                             </p>
                         </Card>
                     </div>
 
+                    <h3 className="text-2xl font-bold text-white mb-4">Les éléments d'un bon prompt</h3>
                     <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
                         {[
                             ['Rôle', 'Tu es un expert en nutrition / un professeur patient'],
@@ -1004,55 +1005,104 @@
         };
 
         const LearningAndCopilot = () => {
-            const learning = [
-                "Langues: conversation, correction, immersion.",
-                "Sciences: vulgarisation progressive, exemples.",
-                "Histoire: contexte, liens entre événements.",
-                "Bricolage: pas-à-pas, sécurité, matériaux.",
-                "Créativité: idées, variantes, feedback."
+            const domains = [
+                {
+                    title: "Langues étrangères",
+                    desc: "Conversation en temps réel, correction de grammaire, exercices personnalisés, immersion culturelle."
+                },
+                {
+                    title: "Histoire et culture",
+                    desc: "Contexte historique, explications approfondies, connexions entre événements."
+                },
+                {
+                    title: "Bricolage et travaux pratiques",
+                    desc: "Instructions étape par étape, conseils de sécurité, choix des matériaux."
+                },
+                {
+                    title: "Sciences et technologies",
+                    desc: "Vulgarisation de concepts complexes, expériences à réaliser, actualités scientifiques."
+                },
+                {
+                    title: "Arts et créativité",
+                    desc: "Techniques artistiques, histoire de l'art, analyse d'œuvres, inspiration créative."
+                },
+                {
+                    title: "Développement personnel",
+                    desc: "Productivité, gestion du temps, communication, réflexion philosophique."
+                }
             ];
 
-            const daily = [
-                "Emails et courriers administratifs.",
-                "Planification de projets et étapes.",
-                "Synthèse de documents longs.",
-                "Brainstorming et génération d'options.",
-                "Préparation d'entretiens ou négociations."
+            const mentor = [
+                {
+                    title: "Un professeur patient et infatigable",
+                    desc: "Disponibilité 24h/24, absence de jugement, possibilité de poser la même question dix fois sans gêne."
+                },
+                {
+                    title: "Synthèse et clarification",
+                    desc: "Distille l'essentiel d'un sujet complexe et construit des ponts entre les concepts."
+                },
+                {
+                    title: "Vulgarisation sur mesure",
+                    desc: "Adapte les explications à votre niveau, vos centres d'intérêt et votre style d'apprentissage."
+                },
+                {
+                    title: "Stimulation de la curiosité",
+                    desc: "Propose des pistes d'exploration, lectures complémentaires et exercices pratiques."
+                }
             ];
 
             return (
                 <Section>
                     <div className="max-w-6xl w-full">
                         <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-4">
-                            Chapitre 2: Maîtriser l'IA au quotidien
+                            L'IA pour apprendre : votre bibliothèque mondiale
                         </h2>
-                        <p className="text-center text-gray-300 max-w-3xl mx-auto mb-10">
-                            Utilisez l'IA comme une bibliothèque mondiale et un copilote de tâches. Elle propose, vous décidez.
+                        <p className="text-center text-gray-300 max-w-4xl mx-auto mb-4">
+                            Imaginez avoir accès instantanément à un enseignant sur n'importe quel sujet, disponible 24h/24, qui adapte son explication à votre niveau de compréhension, qui ne se lasse jamais de vos questions, et qui peut reformuler de dix manières différentes jusqu'à ce que vous compreniez.
                         </p>
-                        <div className="grid md:grid-cols-2 gap-8">
-                            <Card>
-                                <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
-                                    <BookOpen className="text-blue-400" /> IA pour apprendre
-                                </h3>
-                                <ul className="space-y-2 text-gray-300 text-sm">
-                                    {learning.map((item, idx) => <li key={idx}>• {item}</li>)}
-                                </ul>
-                                <p className="mt-4 text-blue-200 text-sm italic">
-                                    "Apprendre avec l'IA, c'est discuter avec la bibliothèque du monde."
-                                </p>
-                            </Card>
-                            <Card delay={0.1}>
-                                <h3 className="text-2xl font-bold text-white mb-4 flex items-center gap-2">
-                                    <Lightbulb className="text-yellow-400" /> IA comme copilote
-                                </h3>
-                                <ul className="space-y-2 text-gray-300 text-sm">
-                                    {daily.map((item, idx) => <li key={idx}>• {item}</li>)}
-                                </ul>
-                                <p className="mt-4 text-yellow-200 text-sm italic">
-                                    Repérez une tâche qui vous épuise: c'est souvent le meilleur point d'entrée pour l'automatisation.
-                                </p>
-                            </Card>
+                        <p className="text-center text-gray-300 max-w-4xl mx-auto mb-8">
+                            C'est ce que l'IA apporte à l'apprentissage : une démocratisation sans précédent du savoir.
+                        </p>
+
+                        <h3 className="text-2xl font-bold text-white mb-4">Domaines d'apprentissage illimités</h3>
+                        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4 mb-8">
+                            {domains.map((item, idx) => (
+                                <Card key={idx} className="p-4">
+                                    <h4 className="text-white font-bold mb-2">{item.title}</h4>
+                                    <p className="text-gray-300 text-sm">{item.desc}</p>
+                                </Card>
+                            ))}
                         </div>
+
+                        <Card className="mb-8 border-blue-500/30">
+                            <p className="text-blue-200 italic text-lg mb-2">
+                                "Apprendre avec l'IA, c'est discuter avec la bibliothèque du monde."
+                            </p>
+                            <p className="text-gray-300 text-sm leading-relaxed">
+                                Mais attention : l'IA est un complément, pas un remplacement de l'enseignement humain. Elle excelle pour expliquer, clarifier, donner des exemples. Elle ne remplace pas l'empathie d'un professeur, le débat avec des pairs, ni l'expérience pratique du terrain.
+                            </p>
+                        </Card>
+
+                        <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-6">
+                            L'IA comme mentor personnel
+                        </h2>
+                        <div className="grid md:grid-cols-2 gap-6 mb-8">
+                            {mentor.map((item, idx) => (
+                                <Card key={idx} className="p-5">
+                                    <h3 className="text-xl font-bold text-white mb-2">{item.title}</h3>
+                                    <p className="text-gray-300 text-sm">{item.desc}</p>
+                                </Card>
+                            ))}
+                        </div>
+
+                        <Card className="border-yellow-500/30">
+                            <p className="text-yellow-200 italic text-lg mb-2">
+                                "Un prof patient, infatigable, gratuit."
+                            </p>
+                            <p className="text-gray-300 text-sm leading-relaxed">
+                                Cette accessibilité démocratise profondément l'éducation. Que vous soyez étudiant, professionnel en reconversion, retraité curieux ou parent aidant ses enfants, l'IA peut compléter puissamment l'école, l'université et la formation continue.
+                            </p>
+                        </Card>
                     </div>
                 </Section>
             );
