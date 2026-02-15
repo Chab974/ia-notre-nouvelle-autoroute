@@ -329,6 +329,30 @@
                 { name: "Renforcement", usage: "Jeux, robotique", hint: "Essais/erreurs avec récompenses." }
             ];
 
+            const aiTypesDetailed = [
+                {
+                    title: "IA Faible (Narrow AI)",
+                    tag: "Réalité actuelle",
+                    desc: "C'est l'IA que nous utilisons aujourd'hui. Elle excelle dans une tâche spécifique : reconnaître des visages, traduire des textes, jouer aux échecs.",
+                    extra: "Elle ne transfère pas naturellement ses compétences d'un domaine à l'autre.",
+                    sample: "Exemples : Siri, Alexa, ChatGPT, systèmes de recommandation Netflix"
+                },
+                {
+                    title: "IA Générale (AGI)",
+                    tag: "Hypothétique",
+                    desc: "L'IA générale serait capable d'apprendre et de raisonner sur n'importe quel sujet, comme un être humain, avec transfert de compétences et adaptation au contexte.",
+                    extra: "Elle n'existe pas encore, malgré les progrès récents.",
+                    sample: "Horizon : les experts divergent, entre 10 ans et jamais"
+                },
+                {
+                    title: "Super-IA",
+                    tag: "Spéculative",
+                    desc: "Hypothétique intelligence qui surpasserait largement les capacités humaines dans tous les domaines : créativité, résolution de problèmes, intelligence sociale et émotionnelle.",
+                    extra: "Le sujet alimente les débats éthiques les plus sensibles.",
+                    sample: "Statut : science-fiction (pour le moment)"
+                }
+            ];
+
             return (
                 <Section>
                     <div className="max-w-6xl w-full">
@@ -362,6 +386,37 @@
                                 </div>
                             </Card>
                         </div>
+
+                        <div className="mt-10">
+                            <h3 className="text-2xl md:text-3xl font-bold text-white text-center mb-6">
+                                Les trois types d'intelligence artificielle
+                            </h3>
+                            <div className="grid md:grid-cols-3 gap-6">
+                                {aiTypesDetailed.map((item, idx) => (
+                                    <Card key={idx} className="h-full">
+                                        <div className="flex items-center justify-between gap-3 mb-3">
+                                            <h4 className="text-xl font-bold text-white">{item.title}</h4>
+                                            <span className="text-xs uppercase tracking-wide px-2 py-1 rounded-full bg-white/10 text-gray-300">
+                                                {item.tag}
+                                            </span>
+                                        </div>
+                                        <p className="text-gray-300 text-sm leading-relaxed">{item.desc}</p>
+                                        <p className="text-gray-400 text-sm leading-relaxed mt-3">{item.extra}</p>
+                                        <p className="text-blue-200 text-sm mt-4 font-medium">{item.sample}</p>
+                                    </Card>
+                                ))}
+                            </div>
+                        </div>
+
+                        <Card className="mt-8 border-yellow-500/30 bg-yellow-500/10">
+                            <h3 className="text-xl font-bold text-white mb-2">Important à retenir</h3>
+                            <p className="text-gray-200 text-sm leading-relaxed">
+                                Tout ce dont nous parlons aujourd'hui concerne l'IA faible. Ne confondons pas les capacités impressionnantes mais limitées des systèmes actuels avec une intelligence générale encore hors de portée.
+                            </p>
+                            <p className="text-yellow-200 text-sm mt-3">
+                                Cette distinction est cruciale pour garder des attentes réalistes.
+                            </p>
+                        </Card>
                     </div>
                 </Section>
             );
