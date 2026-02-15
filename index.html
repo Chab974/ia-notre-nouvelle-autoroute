@@ -51,7 +51,7 @@
     <div id="root"></div>
 
     <script type="text/babel" data-type="module">
-        import React, { useState, useEffect } from 'react';
+        import React, { useState, useEffect, useRef } from 'react';
         import ReactDOM from 'react-dom/client';
         import { motion, useScroll, useSpring, AnimatePresence } from 'framer-motion';
         import { 
@@ -63,8 +63,8 @@
 
         // --- Composants UI ---
 
-        const Section = ({ children, className = "" }) => (
-            <section className={`snap-section flex flex-col justify-center items-center px-4 py-16 md:px-12 relative overflow-hidden ${className}`}>
+        const Section = ({ children, className = "", id }) => (
+            <section id={id} className={`snap-section flex flex-col justify-center items-center px-4 py-16 md:px-12 relative overflow-hidden ${className}`}>
                 {children}
             </section>
         );
@@ -92,10 +92,135 @@
             );
         };
 
+        const NAV_SECTIONS = [
+            { id: "hero", label: "Accueil" },
+            { id: "introduction", label: "Pourquoi cette conférence" },
+            { id: "foundations", label: "Fondations" },
+            { id: "machine-learning", label: "Comment l'IA apprend" },
+            { id: "risks", label: "Illusions dangereuses" },
+            { id: "safety", label: "Ceinture de sécurité" },
+            { id: "prompting", label: "Art du prompt" },
+            { id: "human-center", label: "Humain au centre" },
+            { id: "energy-geo", label: "Énergie & géopolitique" },
+            { id: "regulation", label: "Régulation" },
+            { id: "next-steps", label: "Prochaines étapes" },
+            { id: "conclusion", label: "Conclusion" }
+        ];
+
+        const scrollToSection = (id) => {
+            const container = document.querySelector('.snap-container');
+            const target = document.getElementById(id);
+            if (!container || !target) return;
+
+            const containerRect = container.getBoundingClientRect();
+            const targetRect = target.getBoundingClientRect();
+            const top = container.scrollTop + (targetRect.top - containerRect.top);
+            container.scrollTo({ top, behavior: 'smooth' });
+        };
+
+        const FloatingIndex = ({ sections, activeId, onNavigate }) => (
+            <aside className="hidden md:block fixed right-4 top-1/2 -translate-y-1/2 z-40">
+                <div className="bg-gray-900/80 backdrop-blur border border-white/10 rounded-xl p-2 shadow-2xl w-56">
+                    <p className="text-[10px] uppercase tracking-wider text-gray-400 px-2 py-1">Navigation</p>
+                    <nav aria-label="Index flottant" className="space-y-1">
+                        {sections.map((section) => {
+                            const isActive = activeId === section.id;
+                            return (
+                                <button
+                                    key={section.id}
+                                    onClick={() => onNavigate(section.id)}
+                                    className={`w-full text-left px-2 py-2 rounded-lg text-xs transition-colors flex items-center gap-2 ${
+                                        isActive ? 'bg-blue-500/20 text-blue-200 border border-blue-400/40' : 'text-gray-300 hover:bg-white/10'
+                                    }`}
+                                    aria-label={`Aller à ${section.label}`}
+                                >
+                                    <span className={`h-2 w-2 rounded-full ${isActive ? 'bg-blue-300' : 'bg-gray-500'}`}></span>
+                                    <span className="truncate">{section.label}</span>
+                                </button>
+                            );
+                        })}
+                    </nav>
+                </div>
+            </aside>
+        );
+
+        const MobileTOC = ({
+            sections,
+            activeId,
+            isOpen,
+            onOpen,
+            onClose,
+            onNavigate,
+            buttonRef,
+            firstItemRef
+        }) => (
+            <>
+                <button
+                    ref={buttonRef}
+                    onClick={onOpen}
+                    className="md:hidden fixed bottom-5 right-4 z-40 px-4 py-3 rounded-full bg-blue-500 text-white font-bold shadow-lg hover:bg-blue-400 transition-colors"
+                    aria-label="Ouvrir l'index de navigation"
+                >
+                    Index
+                </button>
+                <AnimatePresence>
+                    {isOpen && (
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className="md:hidden fixed inset-0 z-40"
+                        >
+                            <button
+                                onClick={onClose}
+                                className="absolute inset-0 bg-black/60"
+                                aria-label="Fermer l'index"
+                            ></button>
+                            <motion.div
+                                initial={{ y: 24, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                exit={{ y: 24, opacity: 0 }}
+                                transition={{ duration: 0.2 }}
+                                className="absolute bottom-0 left-0 right-0 bg-gray-900 border-t border-white/15 rounded-t-2xl p-4 max-h-[70vh] overflow-y-auto"
+                                role="dialog"
+                                aria-modal="true"
+                                aria-label="Table des matières"
+                            >
+                                <div className="flex items-center justify-between mb-3">
+                                    <h3 className="text-white font-bold">Aller à une section</h3>
+                                    <button onClick={onClose} className="text-gray-300 hover:text-white" aria-label="Fermer">
+                                        Fermer
+                                    </button>
+                                </div>
+                                <div className="space-y-2">
+                                    {sections.map((section, index) => {
+                                        const isActive = activeId === section.id;
+                                        return (
+                                            <button
+                                                key={section.id}
+                                                ref={index === 0 ? firstItemRef : null}
+                                                onClick={() => onNavigate(section.id)}
+                                                className={`w-full text-left px-3 py-3 rounded-xl text-sm transition-colors ${
+                                                    isActive ? 'bg-blue-500/20 text-blue-200 border border-blue-400/40' : 'bg-white/5 text-gray-200 hover:bg-white/10'
+                                                }`}
+                                                aria-label={`Aller à ${section.label}`}
+                                            >
+                                                {section.label}
+                                            </button>
+                                        );
+                                    })}
+                                </div>
+                            </motion.div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+            </>
+        );
+
         // --- Sections Statiques ---
 
         const Hero = () => (
-            <Section className="text-center relative">
+            <Section id="hero" className="text-center relative">
                  <div className="absolute inset-0 bg-cover bg-center opacity-20" style={{ backgroundImage: "url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?q=80&w=2072')" }}></div>
                 <div className="absolute inset-0 bg-gradient-to-b from-gray-900/80 to-gray-900"></div>
                 <motion.div 
@@ -131,7 +256,7 @@
         );
 
         const Introduction = () => (
-            <Section>
+            <Section id="introduction">
                 <div className="grid md:grid-cols-2 gap-12 items-center max-w-6xl w-full">
                     <motion.div 
                         initial={{ x: -50, opacity: 0 }}
@@ -209,10 +334,10 @@
             ];
 
             return (
-                <Section className="bg-slate-950/70">
+                <Section id="foundations" className="bg-slate-950/70">
                     <div className="max-w-6xl w-full">
                         <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-4">
-                            Chapitre 1: Les fondations de l'IA
+                            Les fondations de l'IA
                         </h2>
                         <p className="text-center text-gray-300 max-w-3xl mx-auto mb-10">
                             L'IA ne comprend pas comme nous: elle corrèle des motifs statistiques. Cette distinction change tout dans la manière de l'utiliser.
@@ -375,7 +500,7 @@
             ];
 
             return (
-                <Section>
+                <Section id="machine-learning">
                     <div className="max-w-6xl w-full">
                         <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-4">
                             Comment l'IA "apprend" : le machine learning expliqué simplement
@@ -728,7 +853,7 @@
         };
 
         const Risks = () => (
-            <Section className="bg-red-900/10">
+            <Section id="risks" className="bg-red-900/10">
                 <div className="max-w-6xl w-full">
                     <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-4">
                         Les Illusions Dangereuses
@@ -809,7 +934,7 @@
         );
 
         const SafetyBelt = () => (
-            <Section>
+            <Section id="safety">
                 <div className="max-w-6xl w-full space-y-8">
                     <div className="text-center">
                         <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">La ceinture de sécurité numérique</h2>
@@ -879,7 +1004,7 @@
         );
 
         const Prompting = () => (
-            <Section className="bg-gradient-to-br from-gray-900 via-indigo-900/20 to-gray-900">
+            <Section id="prompting" className="bg-gradient-to-br from-gray-900 via-indigo-900/20 to-gray-900">
                 <div className="max-w-6xl w-full">
                     <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-4">
                         L'art du "prompt" : bien communiquer avec l'IA
@@ -951,7 +1076,7 @@
         );
 
         const HumanVsAI = () => (
-            <Section>
+            <Section id="human-center">
                 <div className="max-w-6xl w-full">
                     <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-4">
                         L'humain au centre : ce que l'IA ne fera jamais
@@ -1260,7 +1385,7 @@
         );
 
         const RegulationBalance = () => (
-            <Section className="bg-black">
+            <Section id="regulation" className="bg-black">
                 <div className="max-w-6xl w-full">
                     <div className="text-center max-w-5xl mx-auto mb-10">
                         <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-200 text-xs uppercase tracking-wider mb-4">
@@ -1359,7 +1484,7 @@
             ];
 
             return (
-                <Section className="bg-gradient-to-br from-gray-900 via-blue-900/20 to-gray-900">
+                <Section id="next-steps" className="bg-gradient-to-br from-gray-900 via-blue-900/20 to-gray-900">
                     <div className="max-w-6xl w-full">
                         <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-4">
                             Votre nouvelle auto-école est ouverte
@@ -1417,7 +1542,7 @@
         };
 
         const Consumption = () => (
-            <Section className="bg-black">
+            <Section id="energy-geo" className="bg-black">
                 <div className="max-w-6xl w-full space-y-12">
                     <div className="space-y-6">
                         <div className="inline-flex items-center gap-2 px-4 py-1 rounded-full bg-yellow-500/10 border border-yellow-500/30 text-yellow-200 text-xs uppercase tracking-wider">
@@ -1549,7 +1674,7 @@
         );
 
         const Conclusion = () => (
-            <Section className="relative bg-gradient-to-br from-gray-900 via-slate-900 to-gray-950">
+            <Section id="conclusion" className="relative bg-gradient-to-br from-gray-900 via-slate-900 to-gray-950">
                 <div className="max-w-6xl w-full relative z-10 space-y-10">
                     <div className="text-center">
                         <div className="w-24 h-24 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full mx-auto mb-6 flex items-center justify-center shadow-lg">
@@ -1636,9 +1761,115 @@
         );
 
         const App = () => {
+            const [activeSectionId, setActiveSectionId] = useState(NAV_SECTIONS[0].id);
+            const [isTocOpen, setIsTocOpen] = useState(false);
+            const tocButtonRef = useRef(null);
+            const firstTocItemRef = useRef(null);
+
+            const closeToc = () => {
+                setIsTocOpen(false);
+                setTimeout(() => {
+                    if (tocButtonRef.current) tocButtonRef.current.focus();
+                }, 0);
+            };
+
+            const handleNavigate = (id) => {
+                scrollToSection(id);
+                setActiveSectionId(id);
+                if (isTocOpen) closeToc();
+            };
+
+            useEffect(() => {
+                if (!isTocOpen) return;
+                setTimeout(() => {
+                    if (firstTocItemRef.current) firstTocItemRef.current.focus();
+                }, 0);
+            }, [isTocOpen]);
+
+            useEffect(() => {
+                const onKeyDown = (event) => {
+                    if (event.key === "Escape" && isTocOpen) closeToc();
+                };
+                window.addEventListener("keydown", onKeyDown);
+                return () => window.removeEventListener("keydown", onKeyDown);
+            }, [isTocOpen]);
+
+            useEffect(() => {
+                const container = document.querySelector('.snap-container');
+                if (!container) return;
+
+                const sectionEls = NAV_SECTIONS
+                    .map((section) => document.getElementById(section.id))
+                    .filter(Boolean);
+
+                if (!sectionEls.length) return;
+
+                if ('IntersectionObserver' in window) {
+                    const visibleRatios = new Map();
+                    const observer = new IntersectionObserver(
+                        (entries) => {
+                            entries.forEach((entry) => {
+                                const id = entry.target.id;
+                                if (entry.isIntersecting) visibleRatios.set(id, entry.intersectionRatio);
+                                else visibleRatios.delete(id);
+                            });
+
+                            if (visibleRatios.size > 0) {
+                                const current = [...visibleRatios.entries()].sort((a, b) => b[1] - a[1])[0][0];
+                                setActiveSectionId(current);
+                            }
+                        },
+                        { root: container, threshold: [0.2, 0.55, 0.8] }
+                    );
+
+                    sectionEls.forEach((el) => observer.observe(el));
+                    return () => observer.disconnect();
+                }
+
+                const computeClosestSection = () => {
+                    const containerRect = container.getBoundingClientRect();
+                    const currentTop = container.scrollTop;
+                    let closest = { id: NAV_SECTIONS[0].id, distance: Number.POSITIVE_INFINITY };
+
+                    sectionEls.forEach((el) => {
+                        const rect = el.getBoundingClientRect();
+                        const top = currentTop + (rect.top - containerRect.top);
+                        const distance = Math.abs(top - currentTop);
+                        if (distance < closest.distance) closest = { id: el.id, distance };
+                    });
+
+                    setActiveSectionId(closest.id);
+                };
+
+                let ticking = false;
+                const onScroll = () => {
+                    if (ticking) return;
+                    ticking = true;
+                    requestAnimationFrame(() => {
+                        computeClosestSection();
+                        ticking = false;
+                    });
+                };
+
+                computeClosestSection();
+                container.addEventListener('scroll', onScroll, { passive: true });
+                return () => container.removeEventListener('scroll', onScroll);
+            }, []);
+
             return (
                 <div className="snap-container">
                     <ProgressBar />
+                    <FloatingIndex sections={NAV_SECTIONS} activeId={activeSectionId} onNavigate={handleNavigate} />
+                    <MobileTOC
+                        sections={NAV_SECTIONS}
+                        activeId={activeSectionId}
+                        isOpen={isTocOpen}
+                        onOpen={() => setIsTocOpen(true)}
+                        onClose={closeToc}
+                        onNavigate={handleNavigate}
+                        buttonRef={tocButtonRef}
+                        firstItemRef={firstTocItemRef}
+                    />
                     <Hero />
                     <Introduction />
                     <Foundations />
