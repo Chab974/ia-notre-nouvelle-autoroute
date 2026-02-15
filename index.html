@@ -181,69 +181,6 @@
             </Section>
         );
 
-        const DrivingQuestion = () => {
-            const [answer, setAnswer] = useState('');
-            const [saved, setSaved] = useState(false);
-
-            useEffect(() => {
-                try {
-                    const stored = localStorage.getItem('ia-auto-ecole-question');
-                    if (stored) {
-                        setAnswer(stored);
-                        setSaved(true);
-                    }
-                } catch (e) {
-                    // ignore localStorage issues in restricted browsers
-                }
-            }, []);
-
-            const onSave = () => {
-                const clean = answer.trim();
-                if (!clean) return;
-                try {
-                    localStorage.setItem('ia-auto-ecole-question', clean);
-                    setSaved(true);
-                } catch (e) {
-                    // ignore localStorage issues in restricted browsers
-                }
-            };
-
-            return (
-                <Section className="bg-gray-900/60">
-                    <div className="max-w-4xl w-full">
-                        <h2 className="text-3xl md:text-5xl font-bold text-white text-center mb-4">
-                            Votre première décision de pilote
-                        </h2>
-                        <p className="text-center text-gray-300 mb-8">
-                            Si vous pouviez confier une seule tâche à une IA dès aujourd'hui, laquelle choisiriez-vous ?
-                        </p>
-                        <div className="bg-white/5 border border-white/10 rounded-2xl p-6">
-                            <textarea
-                                value={answer}
-                                onChange={(e) => {
-                                    setAnswer(e.target.value);
-                                    setSaved(false);
-                                }}
-                                placeholder="Exemple: résumer mes notes de réunion et proposer un plan d'action."
-                                className="w-full min-h-[120px] p-4 rounded-xl bg-gray-950/70 border border-gray-700 text-gray-100 focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            />
-                            <div className="mt-4 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
-                                <button
-                                    onClick={onSave}
-                                    className="px-6 py-3 rounded-full bg-blue-500 text-white font-bold hover:bg-blue-400 transition-colors w-full md:w-auto"
-                                >
-                                    Enregistrer ma réponse
-                                </button>
-                                <p className="text-sm text-gray-400">
-                                    {saved ? "Réponse enregistrée localement sur cet appareil." : "Astuce: gardez cette réponse en tête, vous y reviendrez à la fin."}
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-                </Section>
-            );
-        };
-
         const Foundations = () => {
             const milestones = [
                 { year: "1950", title: "Test de Turing", desc: "Question fondatrice: une machine peut-elle imiter une conversation humaine ?" },
@@ -281,20 +218,40 @@
                             L'IA ne comprend pas comme nous: elle corrèle des motifs statistiques. Cette distinction change tout dans la manière de l'utiliser.
                         </p>
 
-                        <div className="grid md:grid-cols-5 gap-4 mb-10">
-                            {milestones.map((item, idx) => (
-                                <Card key={idx} className="p-4">
-                                    <p className="text-blue-300 font-mono font-bold">{item.year}</p>
-                                    <h3 className="text-white font-bold mt-1 mb-2">{item.title}</h3>
-                                    <p className="text-gray-400 text-sm">{item.desc}</p>
-                                </Card>
-                            ))}
-                        </div>
-
                         <div className="bg-white/5 border border-white/10 rounded-2xl p-6 mb-8">
                             <p className="text-xl md:text-2xl text-center text-blue-200 font-semibold">
                                 "L'IA ne comprend pas. Elle corrèle."
                             </p>
+                        </div>
+
+                        <div className="mb-10">
+                            <h3 className="text-2xl md:text-4xl font-bold text-center text-white mb-8">
+                                Un voyage dans le temps
+                            </h3>
+                            <div className="relative">
+                                <div className="hidden md:block absolute left-8 right-8 top-5 h-[2px] bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500"></div>
+                                <div className="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory">
+                                    {milestones.map((item, idx) => (
+                                        <motion.div
+                                            key={idx}
+                                            initial={{ opacity: 0, y: 30 }}
+                                            whileInView={{ opacity: 1, y: 0 }}
+                                            transition={{ duration: 0.5, delay: idx * 0.08 }}
+                                            viewport={{ once: true, margin: "-80px" }}
+                                            className="snap-start min-w-[260px] md:min-w-0 md:flex-1"
+                                        >
+                                            <div className="flex items-center gap-3 mb-3">
+                                                <div className="w-4 h-4 rounded-full bg-white border-4 border-pink-500 shadow-[0_0_12px_rgba(236,72,153,0.8)]"></div>
+                                                <span className="text-pink-400 font-mono font-bold text-lg">{item.year}</span>
+                                            </div>
+                                            <Card className="p-5 h-full border-white/15 hover:border-pink-500/50">
+                                                <h4 className="text-white font-bold mb-2">{item.title}</h4>
+                                                <p className="text-gray-400 text-sm">{item.desc}</p>
+                                            </Card>
+                                        </motion.div>
+                                    ))}
+                                </div>
+                            </div>
                         </div>
 
                         <div className="grid md:grid-cols-3 gap-6">
@@ -586,54 +543,6 @@
                 </div>
             </Section>
         );
-
-        const HistoryTimeline = () => {
-            const events = [
-                { year: "1950", title: "Test de Turing", desc: "Alan Turing pose la question : Les machines peuvent-elles penser ?" },
-                { year: "1956-1970", title: "L'âge d'or", desc: "Premiers programmes d'échecs et de logique." },
-                { year: "2010-2020", title: "Deep Learning", desc: "Explosion des données et de la puissance de calcul." },
-                { year: "2022+", title: "Ère Conversationnelle", desc: "ChatGPT démocratise l'accès pour tous." }
-            ];
-
-            return (
-                <Section className="bg-gray-800/30">
-                    <div className="max-w-4xl w-full">
-                        <motion.h2 
-                            initial={{ opacity: 0 }}
-                            whileInView={{ opacity: 1 }}
-                            className="text-3xl md:text-5xl font-bold text-center text-white mb-16"
-                        >
-                            Un voyage dans le temps
-                        </motion.h2>
-                        
-                        <div className="relative">
-                            <div className="absolute left-4 md:left-1/2 top-0 bottom-0 w-0.5 bg-gradient-to-b from-blue-500 to-purple-500 transform -translate-x-1/2"></div>
-                            
-                            {events.map((event, index) => (
-                                <motion.div 
-                                    key={index}
-                                    initial={{ opacity: 0, y: 50 }}
-                                    whileInView={{ opacity: 1, y: 0 }}
-                                    transition={{ duration: 0.5, delay: index * 0.2 }}
-                                    viewport={{ once: true, margin: "-100px" }}
-                                    className={`relative flex items-center mb-12 ${index % 2 === 0 ? 'md:flex-row-reverse' : ''}`}
-                                >
-                                    <div className="flex-1 md:w-1/2"></div>
-                                    <div className="absolute left-4 md:left-1/2 w-4 h-4 bg-white rounded-full border-4 border-pink-500 transform -translate-x-1/2 z-10 shadow-[0_0_15px_rgba(236,72,153,0.8)]"></div>
-                                    <div className="flex-1 md:w-1/2 pl-12 md:pl-0 md:px-12">
-                                        <div className={`p-6 rounded-xl bg-gray-800 border border-gray-700 hover:border-pink-500/50 transition-all ${index % 2 === 0 ? 'md:text-left' : 'md:text-right'}`}>
-                                            <span className="text-pink-400 font-mono font-bold text-xl">{event.year}</span>
-                                            <h3 className="text-xl text-white font-bold mt-1 mb-2">{event.title}</h3>
-                                            <p className="text-gray-400 text-sm">{event.desc}</p>
-                                        </div>
-                                    </div>
-                                </motion.div>
-                            ))}
-                        </div>
-                    </div>
-                </Section>
-            );
-        };
 
         // --- NOUVEAU: Section Actualités Dynamique ---
 
@@ -1705,9 +1614,7 @@
                     <ProgressBar />
                     <Hero />
                     <Introduction />
-                    <DrivingQuestion />
                     <Foundations />
-                    <HistoryTimeline />
                     <MachineLearningBasics />
                     <Risks />
                     <SafetyBelt />
