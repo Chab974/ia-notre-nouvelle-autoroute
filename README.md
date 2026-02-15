@@ -5,6 +5,14 @@ Présentation web immersive en une page: **L'IA : Notre Nouvelle Autoroute**.
 - Démo en ligne: `https://chab974.github.io/ia-notre-nouvelle-autoroute/`
 - Type de projet: site statique (sans backend, sans build local obligatoire)
 
+## URLs des sites
+
+- Hub principal: `https://chab974.github.io/site-principal/`
+- Quizz IA: `https://chab974.github.io/quizz-IA/`
+- Autoroute IA: `https://chab974.github.io/ia-notre-nouvelle-autoroute/`
+- Dorking Lab: `https://chab974.github.io/laboratoire-google-dorking-osint/`
+- Reseau de Neurones Spatial: `https://chab974.github.io/reseau-neurones-spatial-guide/`
+
 ## 1) Objectif du projet
 
 Ce dépôt contient une présentation pédagogique sur l'IA, pensée comme un storytelling visuel:
