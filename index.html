@@ -640,22 +640,79 @@
 
         const Risks = () => (
             <Section className="bg-red-900/10">
-                <div className="max-w-5xl w-full">
-                    <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-12">
+                <div className="max-w-6xl w-full">
+                    <h2 className="text-3xl md:text-5xl font-bold text-center text-white mb-4">
                         Les Illusions Dangereuses
                     </h2>
+                    <p className="text-center text-gray-300 max-w-4xl mx-auto mb-10">
+                        Une IA convaincante n'est pas forcément fiable. Elle peut produire un résultat plausible, confiant, et pourtant faux.
+                    </p>
+
                     <div className="grid md:grid-cols-3 gap-6">
-                        <Card className="border-red-500/20">
-                            <h3 className="text-xl font-bold text-white mb-2 text-center">👻 Hallucinations</h3>
-                            <p className="text-gray-400 text-sm text-center">L'IA improvise pour combler les vides. Elle n'a pas conscience de la vérité.</p>
+                        <Card className="border-red-500/30">
+                            <h3 className="text-xl font-bold text-white mb-3">👻 Hallucinations</h3>
+                            <p className="text-gray-300 text-sm mb-3">
+                                <strong>Ce qui se passe :</strong> quand l'IA manque d'information, elle complète les vides avec des séquences "probables".
+                            </p>
+                            <p className="text-gray-300 text-sm mb-3">
+                                <strong>Exemples :</strong> fausse citation attribuée à un auteur, article scientifique inventé, date historique erronée présentée avec assurance.
+                            </p>
+                            <p className="text-gray-300 text-sm">
+                                <strong>Réflexe :</strong> exiger les sources, puis vérifier les liens et références dans des bases fiables (sites officiels, publications, institutions).
+                            </p>
                         </Card>
-                        <Card className="border-red-500/20" delay={0.1}>
-                            <h3 className="text-xl font-bold text-white mb-2 text-center">⚖️ Biais Cachés</h3>
-                            <p className="text-gray-400 text-sm text-center">Elle reproduit nos préjugés présents dans les données d'entraînement.</p>
+
+                        <Card className="border-red-500/30" delay={0.1}>
+                            <h3 className="text-xl font-bold text-white mb-3">⚖️ Biais amplifiés</h3>
+                            <p className="text-gray-300 text-sm mb-3">
+                                <strong>Ce qui se passe :</strong> l'IA hérite de biais présents dans ses données d'entraînement et peut les renforcer.
+                            </p>
+                            <p className="text-gray-300 text-sm mb-3">
+                                <strong>Exemples :</strong> recommandations de carrière stéréotypées, formulations moins valorisantes selon genre/origine, priorités injustes dans un tri automatisé.
+                            </p>
+                            <p className="text-gray-300 text-sm">
+                                <strong>Réflexe :</strong> tester avec profils variés, comparer les résultats, et imposer des critères d'équité explicites dans vos prompts et processus.
+                            </p>
                         </Card>
-                        <Card className="border-red-500/20" delay={0.2}>
-                            <h3 className="text-xl font-bold text-white mb-2 text-center">🎭 Deepfakes</h3>
-                            <p className="text-gray-400 text-sm text-center">La manipulation de la réalité devient accessible. Le doute est vital.</p>
+
+                        <Card className="border-red-500/30" delay={0.2}>
+                            <h3 className="text-xl font-bold text-white mb-3">🎭 Deepfakes et faux contenus</h3>
+                            <p className="text-gray-300 text-sm mb-3">
+                                <strong>Ce qui se passe :</strong> images, voix ou vidéos générées peuvent imiter le réel avec un niveau de détail trompeur.
+                            </p>
+                            <p className="text-gray-300 text-sm mb-3">
+                                <strong>Exemples :</strong> faux message vocal d'un proche, vidéo politique manipulée, capture d'écran factice d'une interface officielle.
+                            </p>
+                            <p className="text-gray-300 text-sm">
+                                <strong>Réflexe :</strong> vérifier la source d'origine, croiser avec plusieurs médias, et confirmer via un canal secondaire (appel direct, site institutionnel).
+                            </p>
+                        </Card>
+                    </div>
+
+                    <div className="mt-8 grid md:grid-cols-2 gap-6">
+                        <Card className="border-yellow-500/30">
+                            <h3 className="text-xl font-bold text-white mb-3">Protocole anti-illusion (5 étapes)</h3>
+                            <ul className="space-y-2 text-sm text-gray-300">
+                                <li>1. Demander les sources exactes et datées.</li>
+                                <li>2. Vérifier au moins 2 références indépendantes.</li>
+                                <li>3. Reformuler la question pour détecter les incohérences.</li>
+                                <li>4. Tester le contre-argument: "qu'est-ce qui pourrait être faux ici ?"</li>
+                                <li>5. Garder la décision finale humaine sur les sujets critiques.</li>
+                            </ul>
+                        </Card>
+
+                        <Card className="border-purple-500/30" delay={0.1}>
+                            <h3 className="text-xl font-bold text-white mb-3">Signaux d'alerte rapides</h3>
+                            <ul className="space-y-2 text-sm text-gray-300">
+                                <li>• Réponse très sûre sans source vérifiable.</li>
+                                <li>• Références trop vagues ("des études montrent...").</li>
+                                <li>• Citations sans auteur, date, ni publication.</li>
+                                <li>• Conclusion émotionnelle forte avec peu de preuves.</li>
+                                <li>• Incitation à agir vite sans vérification.</li>
+                            </ul>
+                            <p className="mt-4 text-purple-200 italic text-sm">
+                                "L'IA ne ment pas au sens humain: elle improvise statistiquement."
+                            </p>
                         </Card>
                     </div>
                 </div>
